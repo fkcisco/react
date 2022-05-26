@@ -1,22 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import NavBar from './components/NavBar.jsx';
 
 function App() {
-  return (
+  return (    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <NavBar/>
+      <header className="App-header">        
         <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          Hola soy una <code>App.js</code> desarrolla en React que de a poco me voy a convertir en un Ecommerce dinámico sin la necesidad de usar wordpress y sus mil millones de peticiones al servidor :D
+        </p>        
       </header>
     </div>
   );
