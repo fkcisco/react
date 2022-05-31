@@ -23,7 +23,7 @@ a:active {
   color: white !important;
 } */
 
-.App-header {
+.App-contenedor {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
