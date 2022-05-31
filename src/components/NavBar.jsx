@@ -1,5 +1,9 @@
 import logo from '../logo.svg';
-import {Navbar, Container, Nav, NavDropdown, Button, Badge } from 'react-bootstrap'
+import {Navbar } from 'react-bootstrap'
+import {Container } from 'react-bootstrap'
+import {Nav } from 'react-bootstrap'
+import {NavDropdown } from 'react-bootstrap'
+import CartWidget from './CartWidget'
 
 const NavBar = () => {
   return (
@@ -24,9 +28,7 @@ const NavBar = () => {
         <Nav.Link href="#">Contacto</Nav.Link>
       </Nav>         
     </Navbar.Collapse> 
-    <Button variant="primary">
-      Carrito <Badge bg="secondary">0</Badge>
-    </Button>      
+    <CartWidget/>       
   </Container>
 </Navbar>
     
