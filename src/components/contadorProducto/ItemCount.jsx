@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { InputGroup } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
+import './contadorProducto.css'
 
 const Contador= ({stock, init, ident}) => {
 
@@ -10,10 +11,8 @@ const Contador= ({stock, init, ident}) => {
     const descontar = () => count >= 1  &&  setCount(count - 1)
     
    
-    return (   
-                 
-          
-             <>     
+    return ( 
+            <>     
             <InputGroup className="mb-3 outline-secondary justify-content-between form-control p-0">
               <Button variant="primary" onClick={descontar}>-</Button>
               <p className='cantidad'>{stock === "0" ? "0" : count }</p>

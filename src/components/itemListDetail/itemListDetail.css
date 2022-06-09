@@ -1,0 +1,11 @@
+.detalles {
+    background-color: white;
+    padding: 5px 19px;
+    border-radius: 5px;
+  }
+  
+  .singlePageCatalogo {
+    text-align: left;
+    height: 100vh;
+    background-color: rgb(230, 227, 227);
+  }

@@ -1,9 +1,10 @@
-import logo from '../logo.svg';
+import logo from '../../media/img/logo.svg';
 import {Navbar } from 'react-bootstrap'
 import {Container } from 'react-bootstrap'
 import {Nav } from 'react-bootstrap'
 import {NavDropdown } from 'react-bootstrap'
-import CartWidget from './CartWidget'
+import CartWidget from '../header/CartWidget'
+import './header.css'
 
 const NavBar = () => {
   return (

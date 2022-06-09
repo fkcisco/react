@@ -1,8 +1,8 @@
 import {Row } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
-import {getFetch} from './helpers/getFetch'
-import Item  from './helpers/Item'
-import Cargando from './helpers/Cargando'
+import {getFetch} from '../helpers/getFetch'
+import Item  from '../itemCards/Item'
+import Cargando from '../helpers/Cargando'
 
 
 
@@ -26,7 +26,7 @@ const ListItem = () => {
     <div>
       { loading ?
       <Row className=' d-flexjustify-content-md-center'>
-        <Cargando />
+        <Cargando titulo="Catalogo de Productos"/>
       </Row>        
       :
       <div>    
@@ -34,7 +34,8 @@ const ListItem = () => {
         <Row>
             
             {objProductos.map(producto =>
-                <Item key={producto.id} id={producto.id}  stock={producto.stock} marca={producto.marca} descripcion={producto.descripcion} modelo={producto.modelo} talles={producto.talles} precio={producto.precio} urlMiniatura={producto.urlMiniatura} />
+                <Item key={producto.id} 
+                producto={producto} />
                 )}
 
           </Row>

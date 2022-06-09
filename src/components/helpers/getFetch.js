@@ -4,7 +4,7 @@ export const getFetch = () => {
     return new Promise ((resolve)=>{ 
             setTimeout(()=> {   
                 resolve(Productos)  
-            },3000)          
+            },2000)          
           }) 
       
   } 
