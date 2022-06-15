@@ -18,10 +18,7 @@ const Contador= ({stock, init, ident}) => {
     const agregar = () => count < stock  &&  setCount(count + 1)
     const descontar = () => count >= 1  &&  setCount(count - 1)
     
-    const onAdd = () => {
-        console.log(count)
-    }
-    
+      
     const [imputText,setImputText ] = useState()
     
     return ( 
