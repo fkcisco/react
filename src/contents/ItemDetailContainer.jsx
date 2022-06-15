@@ -1,29 +1,34 @@
 import {Container } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import ItemDetail from '../components/itemListDetail/ItemDetail'
-import {getFetchSolo} from '../components/helpers/getFetchSolo'
+import {getFetch} from '../components/helpers/getFetch'
+
+import {useParams} from 'react-router-dom' 
 
 
-const ItemDetailContainer= () => { 
-
+const ItemDetailContainer= () => {
+    
     const [loading, setLoading] = useState(true) 
-    const [productoSolo, setObjProductoSolo] = useState({})
+    const [objProductos, setObjProductos] = useState([])
+    const { id } = useParams()
 
     useEffect(()=>{
-        getFetchSolo()
+        getFetch()
         .then((resp)=>{    
-            setObjProductoSolo(resp)  
+            setObjProductos(resp.filter(producto => producto.id === id )) 
         })
         .catch(err => console.log(err))  
         .finally(()=> setLoading(false))
     
-    }, [])     
+    }, [id])     
 
     
 
     return (        
-        <Container fluid>                      
-            <ItemDetail producto={productoSolo} loading={loading}/>                           
+        <Container>                      
+             {objProductos.map(producto =>
+             <ItemDetail key={producto.id } producto={producto} loading={loading}/>  
+             )}                         
         </Container>
 
 )

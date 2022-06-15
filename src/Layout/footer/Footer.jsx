@@ -5,8 +5,8 @@ function Footer() {
 
     return (
         
-        <footer>
-            <Container fluid>
+        <footer className='mt-5 text-center' >
+            <Container fluid >
                 <Row>
                     <p className='textoBlanco'> Desarrollado por Francisco Robledo</p>
 

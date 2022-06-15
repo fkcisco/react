@@ -1,30 +1,57 @@
-import {Card } from 'react-bootstrap'
-import {ListGroup } from 'react-bootstrap'
+import {Card, Badge } from 'react-bootstrap'
+import {ListGroup, Button } from 'react-bootstrap'
 import {ListGroupItem } from 'react-bootstrap'
 import {Col } from 'react-bootstrap'
-import ItemCount from '../contadorProducto/ItemCount'
+import { NavLink} from 'react-router-dom'
+import "./ItemCards.css"
 
 
 function ItemCard({producto}){
 
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function precioDescuento(precio,descuento){
+  return precio - (parseFloat(precio) * descuento)
+}
+
    return ( 
    
-      <Col className="col-3 g-1">
+      <Col className="col-3 g-1 text-center">
           <Card>
-                  <Card.Img variant="top" src={producto.urlMiniatura}/>                  
+                 { producto.descuento > 0 && <Badge bg="warning" className='oferta'> Oferta {(producto.descuento*100)} % </Badge>  }
+                  <Card.Img variant="top" src={producto.urlMiniatura}/>
                   <Card.Body>
                     <Card.Title>{producto.marca} </Card.Title>
                     <Card.Text>Modelo: {producto.modelo}</Card.Text>
                   </Card.Body>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem>Precio: {producto.precio}</ListGroupItem>
-                    <ListGroupItem>Talles: {producto.talles.join('-')}</ListGroupItem> 
-                    {producto.stock === "0" ? <ListGroupItem>Sin Stock</ListGroupItem> : <ListGroupItem>Stock: {producto.stock} pares</ListGroupItem> }
+                  <ListGroup className="d-flex">                    
+                    <p className='mb-0'>Talles Disponibles</p>                    
+                    <h4>
+                      {producto.talles.map(talle=>                         
+                          <Badge className="mx-1 my-2" bg="dark" key={talle}>
+                              {talle}
+                          </Badge>                        
+                      )}
+                    </h4>
                   </ListGroup>
-                  <Card.Body>
-                    <Card.Link href="#">Ver Producto</Card.Link>
-                    <ItemCount stock={producto.stock} init='1' ident={producto.id} />
-                  </Card.Body>
+                  <ListGroup className="list-group-flush">                                
+                  <ListGroupItem>
+                    {producto.stock === "0" ? <div> Sin Stock </div> : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>}
+                  </ListGroupItem>                    
+                    { producto.descuento !== "0" ? 
+                      <ListGroupItem bg="danger"><h5>Ahora: {numberWithCommas(precioDescuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numberWithCommas(producto.precio)}</del></h6></ListGroupItem>
+                    :
+                    <ListGroupItem bg="danger"><h5>Precio: {numberWithCommas(producto.precio)}</h5></ListGroupItem>
+                    }
+                  </ListGroup>
+                    <Card.Body>
+                    <NavLink to={`/detalle/${producto.id}`}>
+                          <Button> Ver Producto</Button>
+                      </NavLink>                    
+                        {/* <ItemCount stock={producto.stock} init='1' ident={producto.id} /> */}
+                    </Card.Body>
            </Card>
       </Col>   
 

@@ -3,23 +3,47 @@ import { useEffect, useState } from 'react'
 import {getFetch} from '../helpers/getFetch'
 import Item  from '../itemCards/Item'
 import Cargando from '../helpers/Cargando'
+import {useParams} from 'react-router-dom' 
 
 
 
 const ListItem = () => {
 
-  const [objProductos, setObjProductos] = useState([])
-  const [loading, setLoading] = useState(true) 
+ const [objProductos, setObjProductos] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const { categoriaId } = useParams()
+  const { filtro } = useParams()  
+  const { valor } = useParams()
 
   useEffect(()=>{
-      getFetch()
-      .then((resp)=>{    
-        setObjProductos(resp)  
-      })
-      .catch(err => console.log(err))  
-      .finally(()=> setLoading(false))
+      if(categoriaId) {
+        getFetch()
+        .then((resp)=>{    
+          setObjProductos(resp
+              .filter(producto => producto.tipoProducto === categoriaId)
+              .filter(producto => producto[filtro].toLowerCase() === valor)
+            )
+            
+        })
+        .catch(err => console.log(err))  
+        .finally(()=> setLoading(false))
+
+        } 
+        
+        else {
+
+          getFetch()
+        .then((resp)=>{    
+          setObjProductos(resp)  
+        })
+        .catch(err => console.log(err))  
+        .finally(()=> setLoading(false))
+
+
+        }
   
-  }, [])
+  }, [{categoriaId, filtro, valor}])
  
     return ( 
     

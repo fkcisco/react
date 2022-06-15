@@ -1,6 +1,5 @@
 import jordanLowRojas from './../media/img/Jordan-Low-rojas.jpg'
 
-
 const productoSolo =     
         {
                 id:"1",
@@ -21,8 +20,7 @@ const productoSolo =
         
         }
 
-
-export default productoSolo
+        export default productoSolo
       
     
 

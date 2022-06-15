@@ -1,0 +1,14 @@
+.detalles {
+    background-color: white;
+    padding: 5px 19px;
+    border-radius: 5px;
+  }
+
+  .oferta {
+    width: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 10px;
+    font-size: 1.3rem;
+}

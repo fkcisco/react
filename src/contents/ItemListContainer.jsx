@@ -1,15 +1,20 @@
 import {Container } from 'react-bootstrap'
 import ItemList from '../components/ItemLisContainer/ItemList'
-import SliderHome from '../components/slider/SliderHome'
+// import Imput from '../coderClases/clase-8/Imput'
+// import SliderHome from '../components/slider/SliderHome'
+
+
 
 
 const ItemListContainer= () => {  
 
+    
+
     return (    
         <>
-            <SliderHome /> 
-            <Container>
-                <ItemList />                              
+            {/* <SliderHome />  */}
+            <Container>                
+                <ItemList/>                              
             </Container>
         </>
 )
