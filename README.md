@@ -1,13 +1,13 @@
 ## Plugins
 
-Dillinger is currently extended with the following plugins.
-Instructions on how to use them in your own application are linked below.
+Detalles de las librerias utilizadas.
+Actualizado: 15/06/2022
 
 | Libreria | USO |
 | ------ | ------ |
-| bootstrap ^5.1.3 | Se utilizo para manejar la estructura y los elementos [PlDb] |
-| react-bootstrap ^2.4.0 | Se utilizo para manejar la estructura y los elementos [PlDb] |
-| Bootstrap ICON ^1.8.3| Se utilizo para manejar los iconos de la página[PlGh] |
+| bootstrap ^5.1.3 | Se utilizo para manejar la estructura y los elementos  |
+| react-bootstrap ^2.4.0 | Se utilizo para manejar la estructura y los elementos  |
+| Bootstrap ICON ^1.8.3| Se utilizo para manejar los iconos de la página |
 
 # Getting Started with Create React App
 
