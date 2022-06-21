@@ -15,10 +15,6 @@ function ItemSingle({ ver }){
     
   }
 
-  const onAdd = (cant) => {
-    console.log(cant)
-}
-
    return (    
     <>                
       <Row>
@@ -46,7 +42,7 @@ function ItemSingle({ ver }){
                 </Form.Select>
               </Col>
               <Col sm={8} className="d-flex">
-                <ItemCount stock={ver.stock} init='1' ident={ver.id} onAdd={ onAdd } />
+                <ItemCount stock={ver.stock} init='1' ident={ver.id} />
               </Col>
               </Row>
         </Col>
