@@ -23,17 +23,23 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const DelProducto = ( id ) => {
+        console.log("llega "+id)
         const items = cart.filter((producto)=> producto.id !== id)
         setCart([
             items
         ])
     }
+
     const IsInCart = ( id ) =>{
         return cart && cart.some((i)=> i.id === id)
     }
 
+    const PrecioTotal = () =>{
+        return cart.reduce((acum,i) => acum + i.cantidad * parseInt(i.precio), 0 )
+    }
+
     const vaciarCarrito = () => {
-        setCart([])
+        return setCart([])
     }
 
 return (
@@ -42,7 +48,8 @@ return (
             cart,
             addToCard,
             vaciarCarrito,
-            DelProducto
+            DelProducto,
+            PrecioTotal
         }}> 
 
        {children}

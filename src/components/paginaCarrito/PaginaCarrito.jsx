@@ -8,7 +8,7 @@ import "./paginaContacto.css"
 
 const PaginaCarrito = () => {
     
-    const { cart, vaciarCarrito, DelProducto } = useCartContext()
+    const { cart, vaciarCarrito, DelProducto, PrecioTotal  } = useCartContext()
     console.log(cart) 
     
 
@@ -41,7 +41,7 @@ const PaginaCarrito = () => {
                     </Row>
 
                     <div className="text-center">
-                        <p>total: {  }</p>
+                        <p>total: {PrecioTotal()}</p>
                     </div>
 
                     <div className="text-center">
