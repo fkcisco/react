@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button } from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 
-const ImputCount = ({}) =>{
+const ImputCount = () =>{
     return (
         <>
         <NavLink to="/carrito"><Button variant="primary">Ir al Carrito</Button></NavLink>
@@ -17,10 +17,13 @@ const ButtonCount = ({handleInter}) =>{
 
 const Intercambiabilidad = ({ ident }) => {
     const [inputType, setInputType ] = useState("button")
+    
     const handleInter = () => {
-                setInputType("input")
+            setInputType("input")
     }
 
+    
+    
 return (
             <> 
                 {

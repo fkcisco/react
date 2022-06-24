@@ -1,17 +1,23 @@
 import { useState } from 'react'
 import { InputGroup } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
-import Intercambiabilidad from '../botones/Intercambiabilidad'
+//import Intercambiabilidad from '../botones/Intercambiabilidad'
 import './contadorProducto.css'
 
 
 
-const Contador= ({stock, init, ident}) => {
+
+const Contador= ({stock, init, ident, onAdd}) => {
     
-    const [ count, setCount ] = useState(parseFloat(init))   
+    const [ count, setCount ] = useState(parseFloat(init)) 
+    
+
     const agregar = () => count < stock  &&  setCount(count + 1)
-    const descontar = () => count >= 1  &&  setCount(count - 1)
-  
+    const descontar = () => count >= 1  &&  setCount(count - 1)   
+
+    const agregarCarrito = () => {
+      onAdd(count)
+    }
     
     return ( 
             <>     
@@ -24,7 +30,8 @@ const Contador= ({stock, init, ident}) => {
               {stock === "0" ? 
                   <Button variant="danger" id={ident}>Sin Stock</Button> 
                   : 
-                  <Intercambiabilidad id={ ident }/>
+                  <Button variant="outline-primary" onClick={agregarCarrito}>Agregar</Button>
+                  //<Intercambiabilidad id={ ident } onAdd={count}/>
                   }                  
                   
             </div>

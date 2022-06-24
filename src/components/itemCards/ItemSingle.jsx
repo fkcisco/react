@@ -2,17 +2,24 @@ import {ListGroup, Row } from 'react-bootstrap'
 import {Col, Form } from 'react-bootstrap'
 import {Tabs, Tab, Badge} from 'react-bootstrap'
 import ItemCount from '../contadorProducto/ItemCount'
+import { useCartContext } from '../../contexts/cartContext'
 
 function ItemSingle({ ver }){
 
  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
+}
 
 
-  function precioDescuento(precio,descuento){
-    return precio - (parseFloat(precio) * descuento)
-    
+function precioDescuento(precio,descuento){
+    return precio - (parseFloat(precio) * descuento)    
+}
+
+  const { addToCard } = useCartContext()
+
+  const onAdd = (count) => {  
+    console.log(count)
+      addToCard( { ...ver, cantidad:count} ) 
   }
 
    return (    
@@ -42,7 +49,8 @@ function ItemSingle({ ver }){
                 </Form.Select>
               </Col>
               <Col sm={8} className="d-flex">
-                <ItemCount stock={ver.stock} init='1' ident={ver.id} />
+                <ItemCount stock={ver.stock} init='1' ident={ver.id} onAdd={onAdd} />
+
               </Col>
               </Row>
         </Col>

@@ -1,5 +1,7 @@
-import {Card, Badge } from 'react-bootstrap'
-import {ListGroup, Button } from 'react-bootstrap'
+import {Card} from 'react-bootstrap'
+import {Badge } from 'react-bootstrap'
+import {ListGroup} from 'react-bootstrap'
+import {Button } from 'react-bootstrap'
 import {ListGroupItem } from 'react-bootstrap'
 import {Col } from 'react-bootstrap'
 import { NavLink} from 'react-router-dom'
@@ -10,11 +12,11 @@ function ItemCard({producto}){
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
+  }
 
-function precioDescuento(precio,descuento){
-  return precio - (parseFloat(precio) * descuento)
-}
+  function precioDescuento(precio,descuento){
+    return precio - (parseFloat(precio) * descuento)
+  }
 
    return ( 
    
@@ -49,8 +51,7 @@ function precioDescuento(precio,descuento){
                     <Card.Body>
                     <NavLink to={`/detalle/${producto.id}`}>
                           <Button> Ver Producto</Button>
-                      </NavLink>                    
-                        {/* <ItemCount stock={producto.stock} init='1' ident={producto.id} /> */}
+                      </NavLink>
                     </Card.Body>
            </Card>
       </Col>   

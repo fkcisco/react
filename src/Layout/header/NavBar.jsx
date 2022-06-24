@@ -43,9 +43,12 @@ const NavBar = () => {
          
          
          <NavLink to='/contacto' className={({ isActive }) => (isActive ? 'active nav-link' : 'inactive nav-link')}>Contacto</NavLink> 
+
+         <CartWidget/> 
+      
       </Nav>         
     </Navbar.Collapse> 
-    <CartWidget/>       
+          
   </Container>
 </Navbar>
     
