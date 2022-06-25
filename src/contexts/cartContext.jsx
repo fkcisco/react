@@ -23,11 +23,25 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const DelProducto = ( id ) => {
-        console.log("llega "+id)
+        console.log("llega el id de borrar"+id)
+        
         const items = cart.filter((producto)=> producto.id !== id)
-        setCart([
-            items
-        ])
+
+        console.log(items)
+            
+            if(cart.length === 1) {
+                console.log("vacia"+id)
+                    vaciarCarrito()
+            } else {
+                console.log("no vacia"+id)
+            setCart(
+                [...items]
+                )
+            }
+    }
+
+    const TotalCarrito = () =>{
+        return cart.reduce((acum,i) => acum + i.cantidad, 0 )
     }
 
     const IsInCart = ( id ) =>{
@@ -42,6 +56,8 @@ export const CartContextProvider = ({ children }) => {
         return setCart([])
     }
 
+    
+
 return (
     <CartContext.Provider
         value={{
@@ -49,7 +65,8 @@ return (
             addToCard,
             vaciarCarrito,
             DelProducto,
-            PrecioTotal
+            PrecioTotal,
+            TotalCarrito
         }}> 
 
        {children}

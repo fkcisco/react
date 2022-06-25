@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import {Card} from 'react-bootstrap'
 import {Badge } from 'react-bootstrap'
 import {ListGroup} from 'react-bootstrap'
@@ -8,7 +9,8 @@ import { NavLink} from 'react-router-dom'
 import "./ItemCards.css"
 
 
-function ItemCard({producto}){
+const ItemCard = memo (
+({producto}) => {
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -59,5 +61,7 @@ function ItemCard({producto}){
 )
 
 }
+
+)
 
 export default ItemCard

@@ -4,13 +4,9 @@ import { Button } from 'react-bootstrap'
 //import Intercambiabilidad from '../botones/Intercambiabilidad'
 import './contadorProducto.css'
 
-
-
-
 const Contador= ({stock, init, ident, onAdd}) => {
     
-    const [ count, setCount ] = useState(parseFloat(init)) 
-    
+    const [ count, setCount ] = useState(parseFloat(init))     
 
     const agregar = () => count < stock  &&  setCount(count + 1)
     const descontar = () => count >= 1  &&  setCount(count - 1)   
@@ -35,7 +31,6 @@ const Contador= ({stock, init, ident, onAdd}) => {
                   }                  
                   
             </div>
-
             </>        
 )
 }

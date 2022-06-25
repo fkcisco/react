@@ -4,12 +4,14 @@ import {getFetch} from '../helpers/getFetch'
 import Item  from '../itemCards/Item'
 import Cargando from '../helpers/Cargando'
 import {useParams} from 'react-router-dom' 
+import { memo } from 'react'
 
 
 
-const ListItem = () => {
+const ListItem = memo (
+    () => {
 
- const [objProductos, setObjProductos] = useState([])
+  const [objProductos, setObjProductos] = useState([])
   const [loading, setLoading] = useState(true)
 
   const { categoriaId } = useParams()
@@ -28,11 +30,8 @@ const ListItem = () => {
         })
         .catch(err => console.log(err))  
         .finally(()=> setLoading(false))
-
-        } 
-        
+        }         
         else {
-
           getFetch()
         .then((resp)=>{    
           setObjProductos(resp)  
@@ -69,5 +68,7 @@ const ListItem = () => {
     </div>
    )  
   }
+
+  )
 
   export default ListItem

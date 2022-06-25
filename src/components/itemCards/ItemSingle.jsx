@@ -10,17 +10,15 @@ function ItemSingle({ ver }){
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
 }
 
-
 function precioDescuento(precio,descuento){
     return precio - (parseFloat(precio) * descuento)    
 }
 
   const { addToCard } = useCartContext()
 
-  const onAdd = (count) => {  
-    console.log(count)
+  const onAdd = (count) => {      
       addToCard( { ...ver, cantidad:count} ) 
-  }
+      }
 
    return (    
     <>                
