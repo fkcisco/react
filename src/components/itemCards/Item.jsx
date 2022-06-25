@@ -6,14 +6,17 @@ import {Button } from 'react-bootstrap'
 import {ListGroupItem } from 'react-bootstrap'
 import {Col } from 'react-bootstrap'
 import { NavLink} from 'react-router-dom'
+import { useCartContext } from '../../contexts/cartContext'
 import "./ItemCards.css"
 
-
 const ItemCard = memo (
-({producto}) => {
+({producto}) => { 
 
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+  const { NumberWithCommas  } = useCartContext()  
+
+  function numeroPunto( x ) {
+    NumberWithCommas(x)
   }
 
   function precioDescuento(precio,descuento){
@@ -45,9 +48,9 @@ const ItemCard = memo (
                     {producto.stock === "0" ? <div> Sin Stock </div> : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>}
                   </ListGroupItem>                    
                     { producto.descuento !== "0" ? 
-                      <ListGroupItem bg="danger"><h5>Ahora: {numberWithCommas(precioDescuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numberWithCommas(producto.precio)}</del></h6></ListGroupItem>
+                      <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(precioDescuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
                     :
-                    <ListGroupItem bg="danger"><h5>Precio: {numberWithCommas(producto.precio)}</h5></ListGroupItem>
+                    <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
                     }
                   </ListGroup>
                     <Card.Body>
