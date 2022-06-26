@@ -24,22 +24,39 @@ export const CartContextProvider = ({ children }) => {
 
     const addToCard = ( item ) =>{ 
 
-        if(IsInCart(item.id)) {
+        
+        if(!isNaN(item.talleSeleccionado)) {
+
+                if(IsInCart(item.id)) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'El Producto ya Existe. Se puede comprar un mismo talle en el mismo modelo por pedido'
+                    })
+                } else if( item.cantidad < 1){
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Se debe ingresar una cantidad válida'
+                    })
+                } else {            
+                    setCart([
+                            ...cart,
+                            item
+                        ])
+                    Toast.fire({
+                            icon: 'success',
+                            title: 'Producto Agregado Correctamente'
+                        })
+                        
+                }
+        } else {
             Toast.fire({
                 icon: 'error',
-                title: 'El Producto ya Existe.'
+                title: 'Se debe seleccionar un talle Disponible'
             })
-        } else {            
-            setCart([
-                    ...cart,
-                    item
-                ])
-            Toast.fire({
-                    icon: 'success',
-                    title: 'Producto Agregado Correctamente'
-                })
+
         }
-       
+
+              
     }
 
     const IsInCart = ( id ) =>{
@@ -66,7 +83,11 @@ export const CartContextProvider = ({ children }) => {
         return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
 
     const PrecioTotal = () =>{
-        return cart.reduce((acum,i) => acum + i.cantidad * parseInt(i.precio), 0 )
+        return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precio), 0 )
+    }
+
+    const PrecioTotalDescuento = () =>{
+        return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precioFinal), 0 )
     }
 
     const vaciarCarrito = () => {
@@ -82,6 +103,12 @@ export const CartContextProvider = ({ children }) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       }
 
+      
+    function PrecioDescuento(precio,descuento){
+        return precio - (parseFloat(precio) * descuento)
+      }
+
+      console.log(cart)
     
 
 return (
@@ -93,7 +120,9 @@ return (
             DelProducto,
             PrecioTotal,
             TotalCarrito,
-            NumberWithCommas
+            NumberWithCommas,
+            PrecioDescuento,
+            PrecioTotalDescuento
         }}> 
 
        {children}

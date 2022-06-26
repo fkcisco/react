@@ -13,15 +13,16 @@ const ItemCard = memo (
 ({producto}) => { 
 
 
-  const { NumberWithCommas  } = useCartContext()  
+  const { NumberWithCommas, PrecioDescuento  } = useCartContext()  
 
   function numeroPunto( x ) {
-    NumberWithCommas(x)
+    return NumberWithCommas(x)
   }
 
-  function precioDescuento(precio,descuento){
-    return precio - (parseFloat(precio) * descuento)
+  function descuento( precio , descuento ) {
+    return PrecioDescuento( precio , descuento)
   }
+
 
    return ( 
    
@@ -48,7 +49,7 @@ const ItemCard = memo (
                     {producto.stock === "0" ? <div> Sin Stock </div> : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>}
                   </ListGroupItem>                    
                     { producto.descuento !== "0" ? 
-                      <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(precioDescuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
+                      <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
                     :
                     <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
                     }

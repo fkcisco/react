@@ -11,8 +11,18 @@ const PaginaCarrito = memo (
 
 () => {
     
-    const { cart, vaciarCarrito, DelProducto, PrecioTotal, TotalCarrito  } = useCartContext()    
+    const { cart, vaciarCarrito, DelProducto, PrecioTotal, TotalCarrito, NumberWithCommas, PrecioDescuento, PrecioTotalDescuento  } = useCartContext()  
+    
+    
+    function numeroPunto( x ) {
+        return NumberWithCommas(x)
+      }
 
+      function descuento( precio , descuento ) {
+        return PrecioDescuento( precio , descuento )
+      }
+    
+      
 
     return (        
                 <Container>          
@@ -28,9 +38,7 @@ const PaginaCarrito = memo (
                                 </div> 
                             ) : (
                                 <Col sm={9} className="detalleCarrito" > 
-                                {cart.map(item =>                     
-                                    
-                                             
+                                {cart.map(item =>
                                             <Row key={item.id} className='align-items-center' >                                         
                                                     <Col >
                                                         <img src={item.urlMiniatura} alt={item.modelo} className="img-fluid" />
@@ -41,8 +49,13 @@ const PaginaCarrito = memo (
                                                     <Col >
                                                         <p className='text-capitalize'>{item.modelo}</p>                                                                            
                                                     </Col>
+                                                    <Col >
+                                                        <p className='text-capitalize'>Talle: {item.talleSeleccionado}</p>                                                                            
+                                                    </Col>
                                                     <Col >                                            
-                                                        <p className='fw-bold'>$ {item.precio}</p>
+                                                        
+                                                    <p className='fw-bold'>$ { item.descuento > 0 ?  numeroPunto(descuento(item.precio,item.descuento)) : numeroPunto(item.precio) }</p> 
+
                                                     </Col>
                                                     <Col >
                                                         <p className='fw-bold'>{item.cantidad} </p>                                
@@ -50,30 +63,26 @@ const PaginaCarrito = memo (
                                                     <Col >
                                                         <Button variant="danger" onClick={() => DelProducto(item.id)} >x</Button>                                
                                                     </Col>
-                                                </Row > 
-                                                                                       
-                                                                
+                                                </Row >
                                     )
                                 }
                                 </Col> 
                                     )                              
                               }
-
                         {cart.length >= 1 && (
                             <Col sm={3} className="sidebarCart" >
                                 <h4 className='text-center fw-bold mb-3'>Detalle de Carrito</h4>              
-                                <div className="text-center"> <p className='fw-bold'>total {TotalCarrito()} Productos: ${PrecioTotal()}</p> </div>
+                                <div className="text-center"> <p className='fw-bold'>Total {TotalCarrito()} Productos: ${numeroPunto(PrecioTotalDescuento())}</p> </div>
+                                {PrecioTotalDescuento() !== PrecioTotal() && <div className="text-center"> <p className='fw-bold'>Estas Ahorrando: ${numeroPunto(PrecioTotal() - PrecioTotalDescuento())}</p> </div> }
                                 <div className="text-center mb-2"><Button variant="primary" >Pagar</Button></div>
                                 <div className="text-center mb-2"><Button variant="danger" onClick={vaciarCarrito} >Vaciar Carrito</Button></div>
                             </Col>)
                         }
-
                     </Row> 
                     </Row>        
                 </Container>
                 )
-  }
-
+    }
   )
 
 export default PaginaCarrito

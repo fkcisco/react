@@ -5,9 +5,15 @@ Actualizado: 15/06/2022
 
 | Libreria | USO |
 | ------ | ------ |
+| react ^18.1.0 | Se utilizo como entorno de desarrollo  |
+| react-dom ^18.1.0 | se utilizo para manejar el DOM  |
+| react-router-dom ^6.3.0 | se utilizo para manejar las rutas de la app  |
 | bootstrap ^5.1.3 | Se utilizo para manejar la estructura y los elementos  |
 | react-bootstrap ^2.4.0 | Se utilizo para manejar la estructura y los elementos  |
-| Bootstrap ICON ^1.8.3| Se utilizo para manejar los iconos de la página |
+| Bootstrap ICON ^1.8.3| Se utilizo para manejar los iconos de la app |
+| firebase ^9.8.4| Se utilizo para manejar los productos en una basse datos |
+| sweetalert2 ^11.4.18| Se utilizo para manejar las notificaciones de la app |
+
 
 # Getting Started with Create React App
 

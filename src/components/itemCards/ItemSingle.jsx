@@ -1,24 +1,32 @@
 import {ListGroup, Row } from 'react-bootstrap'
-import {Col, Form } from 'react-bootstrap'
+import {Col } from 'react-bootstrap'
 import {Tabs, Tab, Badge} from 'react-bootstrap'
 import ItemCount from '../contadorProducto/ItemCount'
 import { useCartContext } from '../../contexts/cartContext'
+import { useState } from 'react'
 
 function ItemSingle({ ver }){
 
- function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
-}
+  const { NumberWithCommas, PrecioDescuento  } = useCartContext()  
 
-function precioDescuento(precio,descuento){
-    return precio - (parseFloat(precio) * descuento)    
-}
+  const [ precioFinal, setPrecioFinal ] = useState(descuento(ver.precio,ver.descuento))
+
+
+  function numeroPunto( x ) {
+    return NumberWithCommas(x)
+  }
+
+  function descuento( precio , descuento ) {
+    return PrecioDescuento( precio , descuento )
+  }
+
 
   const { addToCard } = useCartContext()
 
-  const onAdd = (count) => {      
-      addToCard( { ...ver, cantidad:count} ) 
-      }
+  const onAdd = (count, talle) => {      
+      addToCard( { ...ver, cantidad:count, talleSeleccionado: talle, precioFinal: precioFinal} )
+            }
+ 
 
    return (    
     <>                
@@ -32,22 +40,22 @@ function precioDescuento(precio,descuento){
 
               { ver.descuento > 0 && <Badge bg="warning" text="dark">descuento {ver.descuento*100}% </Badge>}
 
-              <Badge bg="light" text="dark">Precio ${numberWithCommas(precioDescuento(ver.precio,ver.descuento))}</Badge>
+              <Badge bg="light" text="dark">Precio ${numeroPunto(descuento(ver.precio,ver.descuento))}</Badge>
             </h2>
             <h4>
-            { ver.descuento > 0 && <Badge bg="danger" text="light">Antes: ${numberWithCommas(ver.precio)}</Badge> }
+            { ver.descuento > 0 && <Badge bg="danger" text="light">Antes: ${numeroPunto(ver.precio)}</Badge> }
             { ver.stock > "0" ? <Badge bg="light" text="danger">Stock {ver.stock} {ver.tipoProducto}</Badge>: <Badge bg="light" text="danger">Sin Stock</Badge> } 
             </h4>
         
             <Row className="d-flex">
-              <Col sm={4}>
-                <Form.Select aria-label="Default select example">
+              {/*<Col sm={4}>
+                 <Form.Select aria-label="Default select example">
                 <option value="0">Talles Disponibles</option>
                 {ver.talles.map(talle=> <option key={talle}>{talle}</option> )}
                 </Form.Select>
-              </Col>
-              <Col sm={8} className="d-flex">
-                <ItemCount stock={ver.stock} init='1' ident={ver.id} onAdd={onAdd} />
+              </Col>*/}
+              <Col sm={12} className="d-flex">
+                <ItemCount stock={ver.stock} init='1' talles={ver.talles} ident={ver.id} onAdd={onAdd} precioFinal={precioFinal}/>
 
               </Col>
               </Row>
