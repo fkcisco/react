@@ -1,5 +1,4 @@
 import {Button} from 'react-bootstrap'
-import {Badge } from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import { useCartContext } from '../../contexts/cartContext'
 
@@ -7,15 +6,20 @@ import { useCartContext } from '../../contexts/cartContext'
 
 const Carrito= () => {
 
-    const { TotalCarrito  } = useCartContext()  
+    const { cart, TotalCarrito  } = useCartContext()  
+    
+
+
     
     return (  
                   
             <NavLink to="/carrito">
-                <Button variant="primary"> Carrito 
-                    <Badge bg="secondary">
-                    {TotalCarrito()}
-                    </Badge> 
+                <Button variant="primary">                    
+                    { cart.length >= 3 ? 
+                        "Terminar Compra"
+                         : 
+                         `${TotalCarrito()} Productos`        
+                    }
                 </Button>
             </NavLink>
                
