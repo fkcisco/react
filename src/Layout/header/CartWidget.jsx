@@ -12,16 +12,22 @@ const Carrito= () => {
 
     
     return (  
-                  
-            <NavLink to="/carrito">
-                <Button variant="primary">                    
-                    { cart.length >= 3 ? 
-                        "Terminar Compra"
-                         : 
-                         `${TotalCarrito()} Productos`        
-                    }
-                </Button>
-            </NavLink>
+            
+        <>
+            { cart.length >= 1 && (
+                <NavLink to="/carrito">
+                    <Button variant="primary">                    
+                        { cart.length >= 3 ? 
+                            "Terminar Compra"
+                            : 
+                            `${TotalCarrito()} Productos`        
+                        }
+                    </Button>
+                </NavLink>             
+            )
+                
+            }        
+        </>
                
 
     )

@@ -10,6 +10,8 @@ export const CartContextProvider = ({ children }) => {
 
     const[cart, setCart] = useState([])
 
+    
+
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -41,7 +43,7 @@ export const CartContextProvider = ({ children }) => {
                     setCart([
                             ...cart,
                             item
-                        ])
+                        ])                       
                     Toast.fire({
                             icon: 'success',
                             title: 'Producto Agregado Correctamente'

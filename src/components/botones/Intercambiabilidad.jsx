@@ -15,7 +15,7 @@ const ButtonCount = ({handleInter}) =>{
     return <Button variant="outline-primary" onClick={handleInter}>Agregar</Button>
 }
 
-const Intercambiabilidad = ({ ident }) => {
+const Intercambiabilidad = ({ ident, count }) => {
     const [inputType, setInputType ] = useState("button")
     
     const handleInter = () => {
