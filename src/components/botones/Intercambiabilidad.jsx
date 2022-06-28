@@ -27,7 +27,9 @@ const Intercambiabilidad = ({ ident, count }) => {
 return (
             <> 
                 {
-                    inputType === "button" ? <ButtonCount handleInter={handleInter} id={ ident }/> : <ImputCount id={ ident }/>
+                    inputType === "button"
+                    ? <ButtonCount handleInter={handleInter} id={ ident }/>
+                    : <ImputCount id={ ident }/>
                 }
             </>
 

@@ -44,7 +44,11 @@ function ItemSingle({ ver }){
             </h2>
             <h4>
             { ver.descuento > 0 && <Badge bg="danger" text="light">Antes: ${numeroPunto(ver.precio)}</Badge> }
-            { ver.stock > "0" ? <Badge bg="light" text="danger">Stock {ver.stock} {ver.tipoProducto}</Badge>: <Badge bg="light" text="danger">Sin Stock</Badge> } 
+            { 
+              ver.stock > "0" 
+              ? <Badge bg="light" text="danger">Stock {ver.stock} {ver.tipoProducto}</Badge>
+              : <Badge bg="light" text="danger">Sin Stock</Badge> 
+            } 
             </h4>
         
             <Row className="d-flex">

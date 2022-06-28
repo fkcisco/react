@@ -60,12 +60,12 @@ const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
                         }
 
                         {
-                          stock === "0" ? (
+                                        stock === "0" ? (
                                           <>
                                             <Button variant="danger" id={ident}>Sin Stock</Button><NavLink to="/">
                                             <Button variant="outline-primary">Seguir Comprando</Button></NavLink>
                                           </> 
-                                        ) : (
+                                          ):(
                                                               
                                           <Button variant="outline-primary" onClick={CarritoAgregar}>Agregar</Button>
                                         ) 

@@ -1,7 +1,7 @@
 import {Container } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import ItemDetail from '../components/itemListDetail/ItemDetail'
-import {getFetch} from '../components/helpers/getFetch'
+import {getFetch} from '../helpers/getFetch'
 
 import {useParams} from 'react-router-dom' 
 

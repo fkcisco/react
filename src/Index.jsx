@@ -1,5 +1,5 @@
-import NavBar from './header/NavBar'
-import Footer from './footer/Footer'
+import NavBar from './Layout/header/NavBar'
+import Footer from './Layout/footer/Footer'
 
 const Layout = (props) => {
   return (

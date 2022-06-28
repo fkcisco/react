@@ -1,4 +1,4 @@
-import Productos from '../../media/Productos'
+import Productos from '../media/Productos'
 
 export const getFetch = () => {  
     return new Promise ((resolve)=>{ 

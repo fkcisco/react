@@ -12,7 +12,6 @@ import "./ItemCards.css"
 const ItemCard = memo (
 ({producto}) => { 
 
-
   const { NumberWithCommas, PrecioDescuento  } = useCartContext()  
 
   function numeroPunto( x ) {
@@ -23,9 +22,7 @@ const ItemCard = memo (
     return PrecioDescuento( precio , descuento)
   }
 
-
-   return ( 
-   
+   return (    
       <Col className="col-3 g-1 text-center">
           <Card>
                  { producto.descuento > 0 && <Badge bg="warning" className='oferta'> Oferta {(producto.descuento*100)} % </Badge>  }
@@ -46,12 +43,16 @@ const ItemCard = memo (
                   </ListGroup>
                   <ListGroup className="list-group-flush">                                
                   <ListGroupItem>
-                    {producto.stock === "0" ? <div> Sin Stock </div> : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>}
+                    {
+                      producto.stock === "0"
+                      ? <div> Sin Stock </div>
+                      : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>
+                    }
                   </ListGroupItem>                    
-                    { producto.descuento !== "0" ? 
-                      <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
-                    :
-                    <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
+                    { 
+                    producto.descuento !== "0" 
+                    ? <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
+                    : <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
                     }
                   </ListGroup>
                     <Card.Body>
@@ -60,12 +61,10 @@ const ItemCard = memo (
                       </NavLink>
                     </Card.Body>
            </Card>
-      </Col>   
+      </Col> 
 
 )
-
 }
-
 )
 
 export default ItemCard

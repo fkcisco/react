@@ -29,7 +29,7 @@ export const CartContextProvider = ({ children }) => {
         
         if(!isNaN(item.talleSeleccionado)) {
 
-                if(IsInCart(item.id)) {
+                if(isInCart(item.id)) {
                     Toast.fire({
                         icon: 'error',
                         title: 'El Producto ya Existe. Se puede comprar un mismo talle en el mismo modelo por pedido'
@@ -61,8 +61,8 @@ export const CartContextProvider = ({ children }) => {
               
     }
 
-    const IsInCart = ( id ) =>{
-        return cart && cart.some((i)=> i.id === id)
+    const isInCart = ( id ) =>{
+        cart?.some((i)=> i.id === id)
     }
 
     const DelProducto = ( id ) => {       
@@ -87,7 +87,7 @@ export const CartContextProvider = ({ children }) => {
     const PrecioTotal = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precio), 0 )
     }
-
+    
     const PrecioTotalDescuento = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precioFinal), 0 )
     }

@@ -9,7 +9,7 @@ import {Routes } from 'react-router-dom'
 import {Route} from 'react-router-dom'
 import {Navigate } from 'react-router-dom'
 import ItemPaginaContacto from './contents/ItemPaginaContacto'
-import Layout from "./Layout/Index";
+import Layout from "./Index.jsx";
 import { createContext } from 'react'
 import { CartContextProvider } from './contexts/cartContext'
 
