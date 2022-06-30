@@ -10,6 +10,7 @@ import { useCartContext } from '../../contexts/cartContext'
 import "./ItemCards.css"
 
 const ItemCard = memo (
+  
 ({producto}) => { 
 
   const { NumberWithCommas, PrecioDescuento  } = useCartContext()  
@@ -21,6 +22,7 @@ const ItemCard = memo (
   function descuento( precio , descuento ) {
     return PrecioDescuento( precio , descuento)
   }
+  
 
    return (    
       <Col className="col-3 g-1 text-center">
@@ -44,13 +46,13 @@ const ItemCard = memo (
                   <ListGroup className="list-group-flush">                                
                   <ListGroupItem>
                     {
-                      producto.stock === "0"
+                      producto.stock === 0
                       ? <div> Sin Stock </div>
                       : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>
                     }
                   </ListGroupItem>                    
                     { 
-                    producto.descuento !== "0" 
+                    producto.descuento !== 0
                     ? <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
                     : <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
                     }

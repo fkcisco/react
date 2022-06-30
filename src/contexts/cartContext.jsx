@@ -62,7 +62,7 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const isInCart = ( id ) =>{
-        cart?.some((i)=> i.id === id)
+        return cart?.some((i)=> i.id === id)
     }
 
     const DelProducto = ( id ) => {       

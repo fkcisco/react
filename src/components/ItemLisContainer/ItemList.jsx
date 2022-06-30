@@ -1,57 +1,60 @@
 import {Row } from 'react-bootstrap'
-import { useEffect, useState } from 'react'
-import {getFetch} from '../../helpers/getFetch'
 import Item  from '../itemCards/Item'
 import Cargando from '../../helpers/Cargando'
+import { memo, useState } from 'react'
+import { useEffect } from "react"
+import { getDocs, getFirestore, collection, query, where } from 'firebase/firestore'
 import {useParams} from 'react-router-dom' 
-import { memo } from 'react'
-
-
-
+//import { useProductContext } from '../../contexts/ProductContext'
 
 const ListItem = memo (
     () => {
 
-  const [objProductos, setObjProductos] = useState([])
-  const [loading, setLoading] = useState(true)
+    //const { ProductsList  } = useProductContext() 
+    
+    const [loading, setLoading] = useState(true) 
+    const [objProductos, setObjProductos] = useState([]) 
 
-  const { categoriaId } = useParams()
-  const { filtro } = useParams()  
-  const { valor } = useParams()
+    const [bool, setBool] = useState(true)    
+        
+    const { categoriaId } = useParams()
+    const { filtro } = useParams()  
+    const { valor } = useParams()
+
 
   useEffect(()=>{
-      if(categoriaId) {
-        getFetch()
-        .then((resp)=>{    
-          setObjProductos(resp
-              .filter(producto => producto.tipoProducto === categoriaId)
-              .filter(producto => producto[filtro].toLowerCase() === valor)
-            )
-            
-        })
-        .catch(err => console.log(err))  
-        .finally(()=> setLoading(false))
-        }         
-        else {
-          getFetch()
-        .then((resp)=>{    
-          setObjProductos(resp)  
-        })
-        .catch(err => console.log(err))  
-        .finally(()=> setLoading(false))
+    if(categoriaId && filtro && valor) {   
+    
+        const db = getFirestore()
+        const queryCollection = collection(db,'productos')
+        const queryCollectionFilter = query(queryCollection, where('tipoProducto','==', categoriaId), where(filtro,'==', valor))
+        getDocs(queryCollectionFilter)               
+        .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
+        .catch(err => console.log(err))
+        .finally(()=>setLoading(false))                
+    
+    } else {       
+                    const db = getFirestore()
+                    const queryCollection = collection(db,'productos')
+                    getDocs(queryCollection)
+                    .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
+                    .catch(err => console.log(err))
+                    .finally(()=>setLoading(false))               
+    } 
+    
+   
+    
+}, [{bool}]) 
 
 
-        }
-  
-  }, [{categoriaId, filtro, valor}])
- 
-    return ( 
+
+  return ( 
     
     <div>
       { loading 
       ?<Row className=' d-flexjustify-content-md-center'><Cargando titulo="Catalogo de Productos"/></Row>        
       :<div>    
-      <h1 className='py-5'>Catalogo de Zapatillas</h1>  
+      <h1 className='py-5 text-center'>Catalogo de Zapatillas</h1>  
         <Row>
             
             {objProductos.map(producto =>

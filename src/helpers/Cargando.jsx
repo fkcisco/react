@@ -1,6 +1,6 @@
 import {Button, Spinner} from 'react-bootstrap'
 
-function cargando({titulo}) {
+function Cargando({titulo}) {
   return(
     <>
     <Button variant="primary my-5 p-5" disabled>
@@ -17,4 +17,4 @@ function cargando({titulo}) {
   )
 }
 
-export default cargando
+export default Cargando

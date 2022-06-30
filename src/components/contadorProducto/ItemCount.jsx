@@ -44,7 +44,7 @@ const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
               <div className="d-flex">
                 { botonAgregar === true ? (  
                     <>
-                        { stock !== "0" && (
+                        { stock !== 0 && (
                             <>
                                   <Form.Select className='talle' aria-label="Default select example" onChange={capturarTalle}>
                                     <option value="0">Talles Disponibles</option>
@@ -52,7 +52,7 @@ const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
                                     </Form.Select>
                                     <InputGroup className="mb-3 outline-secondary justify-content-between form-control p-0">
                                       <Button variant="primary" onClick={descontar}>-</Button>
-                                      <p className='cantidad'>{stock === "0" ? "0" : count }</p>
+                                      <p className='cantidad'>{stock === 0 ? 0 : count }</p>
                                       <Button variant="primary" onClick={agregar}>+</Button>
                                     </InputGroup>
                               </> 
@@ -60,7 +60,7 @@ const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
                         }
 
                         {
-                                        stock === "0" ? (
+                                        stock === 0 ? (
                                           <>
                                             <Button variant="danger" id={ident}>Sin Stock</Button><NavLink to="/">
                                             <Button variant="outline-primary">Seguir Comprando</Button></NavLink>

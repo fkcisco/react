@@ -1,6 +1,7 @@
 import { Row} from 'react-bootstrap'
-import Cargando from '../helpers/Cargando'
+import Cargando from '../../helpers/Cargando'
 import ItemSingle from '../itemCards/ItemSingle'
+
 import './itemListDetail.css'
 
 const ItemDetail = ( { producto, loading }) => {

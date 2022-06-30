@@ -5,12 +5,12 @@ import ItemCount from '../contadorProducto/ItemCount'
 import { useCartContext } from '../../contexts/cartContext'
 import { useState } from 'react'
 
+
 function ItemSingle({ ver }){
 
   const { NumberWithCommas, PrecioDescuento  } = useCartContext()  
 
   const [ precioFinal, setPrecioFinal ] = useState(descuento(ver.precio,ver.descuento))
-
 
   function numeroPunto( x ) {
     return NumberWithCommas(x)
@@ -20,12 +20,14 @@ function ItemSingle({ ver }){
     return PrecioDescuento( precio , descuento )
   }
 
-
   const { addToCard } = useCartContext()
 
   const onAdd = (count, talle) => {      
       addToCard( { ...ver, cantidad:count, talleSeleccionado: talle, precioFinal: precioFinal} )
-            }
+  }
+
+    
+    
  
 
    return (    
@@ -45,7 +47,7 @@ function ItemSingle({ ver }){
             <h4>
             { ver.descuento > 0 && <Badge bg="danger" text="light">Antes: ${numeroPunto(ver.precio)}</Badge> }
             { 
-              ver.stock > "0" 
+              ver.stock > 0
               ? <Badge bg="light" text="danger">Stock {ver.stock} {ver.tipoProducto}</Badge>
               : <Badge bg="light" text="danger">Sin Stock</Badge> 
             } 
@@ -77,7 +79,7 @@ function ItemSingle({ ver }){
                     <ListGroup.Item>Genero: {ver.genero}</ListGroup.Item>
                     <ListGroup.Item>Material: {ver.material}</ListGroup.Item>
                     <ListGroup.Item>Material Suela: {ver.materialSuela}</ListGroup.Item>
-                    <ListGroup.Item>Stock Disponible:{ ver.stock === "0" ? ver.stock : "Sin Stock"}</ListGroup.Item>
+                    <ListGroup.Item>Stock Disponible:{ ver.stock === 0 ? ver.stock : "Sin Stock"}</ListGroup.Item>
                 </ListGroup>
               </Tab>
               <Tab eventKey="envios" title="Formas de Envio">
