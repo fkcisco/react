@@ -17,6 +17,7 @@
     "sweetalert2": "^11.4.18",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://madryn-ads.com.ar/nano/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -1,17 +1,17 @@
-import { memo } from 'react'
-import {Container} from 'react-bootstrap'
+import { memo, useState } from 'react'
+import {Container, Form} from 'react-bootstrap'
 import {Row} from 'react-bootstrap'
+import { addDoc, collection, getFirestore, updateDoc, doc, getDocs, where, documentId, query, writeBatch } from 'firebase/firestore'
 import {Col} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import { useCartContext } from '../../contexts/cartContext'
-import {addDoc, collection, getFirestore } from 'firebase/firestore'
 import "./paginaCarrito.css"
 
 const PaginaCarrito = memo (
 () => {
     
-    const { cart, vaciarCarrito, DelProducto, PrecioTotal, TotalCarrito, NumberWithCommas, PrecioDescuento, PrecioTotalDescuento  } = useCartContext()  
+    const { cart, vaciarCarrito, DelProducto, PrecioTotal, TotalCarrito, NumberWithCommas, PrecioDescuento, PrecioTotalDescuento, MensajeValidar  } = useCartContext()  
     
     
     function numeroPunto( x ) {
@@ -22,44 +22,87 @@ const PaginaCarrito = memo (
         return PrecioDescuento( precio , descuento )
       }
 
-     
+      const [nameBuyer, setNameBuyer] = useState('')
+      const [phoneBuyer, setPhoneBuyer] = useState('')
+      const [mailBuyer, setMailBuyer] = useState('')
+
+      const [idPedido, setIdPedido,] = useState('')
+
+
+         
     
-                
-                const generarOrden = (e) => {
+      
+
+        async function generarOrden(e){
                     e.preventDefault()                    
+                   
                     const orden = {}
-                    
-                    orden.buyer = {name:"francisco",phone:"1550505503",mail:"hola@franrobledo.com"}
+
+                    orden.buyer = {
+                        name: nameBuyer,
+                        phone: phoneBuyer,
+                        mail: mailBuyer,
+                            }
                     orden.total = PrecioTotal()
 
                     orden.items = cart.map(cartItem => {
                         const ordenId = cartItem.id
-                        const orderNombre = cartItem.nombre
+                        const orderNombre = cartItem.modelo
                         const ordenPrecio = cartItem.precio * cartItem.cantidad
 
                         return {ordenId, orderNombre, ordenPrecio}
                     })
                     
-                        
+                    // insertar orden de pedido nueva    
                     const db = getFirestore()
-                    const ordenCollection = collection(db,'ordenes')
-                    console.log(ordenCollection)
-                    console.log(orden)
+                    const ordenCollection = await collection(db,'ordenes')                     
+                    
+                    if(!nameBuyer) {
+                        MensajeValidar("debe completar el campo Nombre")
+                    } else if(!phoneBuyer) {                        
+                        MensajeValidar("debe completar el campo Teléfono")
+                    } else if(!mailBuyer) {                         
+                        MensajeValidar("debe completar el campo Mail")
+                    } else { 
 
-                    addDoc(ordenCollection, {
-                        creada: orden.ordenId,
-                        usuario: [{ name: orden.orderNombre }]
-                    })                  
+                        try {
+                            const docRef = await addDoc(ordenCollection, {orden} )
+                            setIdPedido(docRef.id)
+                            console.log("Document written with ID: ", docRef.id);
+                            console.log(orden.buyer)
+                        } catch (e) {
+                            console.error("Error adding document: ", e);
+                        }
 
-                    .then(resp=>console.log(resp))
-                    .catch(err => console.log("error"+err))
-                    .finally()              
+                        const queryCollectionStock = collection(db,'productos')
+                        
+                        const queryActualizarStock = query (
+                                queryCollectionStock,
+                                where (documentId(),'in', cart.map(it => it.id))   
+                              )
+    
+                        const batch = writeBatch(db)
+    
+                        await getDocs(queryActualizarStock)
+                        .then(
+                            resp => resp.docs.forEach(
+                                res => batch.update(res.ref,{
+                                            stock:
+                                            res.data().stock - cart.find(item => item.id === res.id).cantidad
+                                                    })  
+                                ))  
+                        .finally(() => vaciarCarrito())                
+                       
+    
+                        batch.commit()
+                    }
+                    
+                             
                     
 
                 }
-
     
-      
+                
 
     return (        
                 <Container>          
@@ -72,6 +115,7 @@ const PaginaCarrito = memo (
                     <Row>
                             {cart.length < 1 ? (
                                 <div className='text-center'>
+                                    { idPedido && <h1>Tu orden de Compra es: { idPedido }</h1> }
                                     <h2 className='my-5'>Carrito Vacio</h2>
                                     <NavLink to="/"><Button variant="primary" >Ir a Comprar</Button></NavLink>
                                 </div> 
@@ -112,6 +156,19 @@ const PaginaCarrito = memo (
                                 <div className="text-center"> <p className='fw-bold'>Total {TotalCarrito()} Productos: ${numeroPunto(PrecioTotalDescuento())}</p> </div>
                                 {PrecioTotalDescuento() !== PrecioTotal() && <div className="text-center"> <p className='fw-bold'>Estas Ahorrando: ${numeroPunto(PrecioTotal() - PrecioTotalDescuento())}</p> </div> }
                                 <div className="text-center mb-2"><Button variant="primary" >Pagar</Button></div>
+                                <Form>
+                                    <Form.Group className="mb-3 text-center">
+                                        {/* <Form.Label htmlFor="nombre">Nombre</Form.Label> */}
+                                        <Form.Control type="text" id="nombreOrden" placeholder="Ingresar Nombre" onChange={event => setNameBuyer(event.target.value)}/>
+                                        {/* <Form.Label className="text-center">Teléfono</Form.Label> */}
+                                        <Form.Control type="phone" id="telefonoOrden" placeholder="Ingresar Teléfono" onChange={event => setPhoneBuyer(event.target.value)}/> 
+                                        {/* <Form.Label className="text-center">Email</Form.Label> */}
+                                        <Form.Control type="email" id="mailOrden" placeholder="Ingresar Mail" onChange={event => setMailBuyer(event.target.value)}/>                                       
+                                    </Form.Group>
+                                    
+                                   
+                                </Form>
+
                                 <div className="text-center mb-2"><Button variant="primary" onClick={generarOrden} >Generar orden</Button></div>
                                 <div className="text-center mb-2"><Button variant="danger" onClick={vaciarCarrito} >Vaciar Carrito</Button></div>
                             </Col>)

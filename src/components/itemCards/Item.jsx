@@ -46,7 +46,7 @@ const ItemCard = memo (
                   <ListGroup className="list-group-flush">                                
                   <ListGroupItem>
                     {
-                      producto.stock === 0
+                      producto.stock <= 0
                       ? <div> Sin Stock </div>
                       : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>
                     }

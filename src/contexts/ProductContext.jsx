@@ -22,7 +22,8 @@ export const ProductContextProvider = ({ children }) => {
 
        
 
-    function ProductsList(){          
+        const ProductsList = () => {         
+       
 
         useEffect(()=>{
             if(categoriaId && filtro && valor) {   
@@ -33,30 +34,35 @@ export const ProductContextProvider = ({ children }) => {
                 getDocs(queryCollectionFilter)               
                 .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
                 .catch(err => console.log(err))
-                .finally(()=>setLoading(false))                
-            
+                .finally(()=>setLoading(false)) 
+                
+           
             } else {       
                             const db = getFirestore()
                             const queryCollection = collection(db,'productos')
                             getDocs(queryCollection)
                             .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
                             .catch(err => console.log(err))
-                            .finally(()=>setLoading(false))               
-            } 
+                            .finally(()=>setLoading(false))
+                            
+                                   
+            }      
             
+            console.log(objProductos)
            
-            
-        }, [{bool}]) 
-    
+        }, [bool])
+
+        
+
    }
 
   
-   
 
     return (
         <ProductContext.Provider
             value={{
-                ProductsList               
+                objProductos,
+                ProductsList          
             }}> 
     
            {children}

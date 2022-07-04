@@ -79,7 +79,7 @@ function ItemSingle({ ver }){
                     <ListGroup.Item>Genero: {ver.genero}</ListGroup.Item>
                     <ListGroup.Item>Material: {ver.material}</ListGroup.Item>
                     <ListGroup.Item>Material Suela: {ver.materialSuela}</ListGroup.Item>
-                    <ListGroup.Item>Stock Disponible:{ ver.stock === 0 ? ver.stock : "Sin Stock"}</ListGroup.Item>
+                    <ListGroup.Item>Stock Disponible:{ ver.stock <= 0 ? ver.stock : "Sin Stock"}</ListGroup.Item>
                 </ListGroup>
               </Tab>
               <Tab eventKey="envios" title="Formas de Envio">

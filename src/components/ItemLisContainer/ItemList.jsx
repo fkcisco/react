@@ -9,10 +9,13 @@ import {useParams} from 'react-router-dom'
 
 const ListItem = memo (
     () => {
+      
+   //const { ProductsList , objProductos } = useProductContext() 
+  
+  const [loading, setLoading] = useState(true)     
+   
+  
 
-    //const { ProductsList  } = useProductContext() 
-    
-    const [loading, setLoading] = useState(true) 
     const [objProductos, setObjProductos] = useState([]) 
 
     const [bool, setBool] = useState(true)    

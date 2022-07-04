@@ -101,6 +101,13 @@ export const CartContextProvider = ({ children }) => {
         
     }
 
+    const MensajeValidar = ( mensaje ) => {
+        return Toast.fire({
+            icon: 'error',
+            title: mensaje
+        })
+    }
+
     function NumberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       }
@@ -110,8 +117,7 @@ export const CartContextProvider = ({ children }) => {
         return precio - (parseFloat(precio) * descuento)
       }
 
-      console.log(cart)
-    
+          
 
 return (
     <CartContext.Provider
@@ -124,7 +130,8 @@ return (
             TotalCarrito,
             NumberWithCommas,
             PrecioDescuento,
-            PrecioTotalDescuento
+            PrecioTotalDescuento,
+            MensajeValidar
         }}> 
 
        {children}
