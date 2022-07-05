@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 function ItemSingle({ ver }){
 
-  const { NumberWithCommas, PrecioDescuento  } = useCartContext()  
+  const { NumberWithCommas, PrecioDescuento, addToCard  } = useCartContext()  
 
   const [ precioFinal, setPrecioFinal ] = useState(descuento(ver.precio,ver.descuento))
 
@@ -19,8 +19,6 @@ function ItemSingle({ ver }){
   function descuento( precio , descuento ) {
     return PrecioDescuento( precio , descuento )
   }
-
-  const { addToCard } = useCartContext()
 
   const onAdd = (count, talle) => {      
       addToCard( { ...ver, cantidad:count, talleSeleccionado: talle, precioFinal: precioFinal} )

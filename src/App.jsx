@@ -12,33 +12,37 @@ import ItemPaginaContacto from './contents/ItemPaginaContacto'
 import Layout from "./Index.jsx";
 import { createContext } from 'react'
 import { CartContextProvider } from './contexts/cartContext'
-//import { ProductContextProvider } from './contexts/ProductContext'
+import PaginaDeseos from './components/paginaDeseos/PaginaDeseos'
+import SliderHome from  './components/slider/SliderHome'
+
+import { ProductContextProvider } from './contexts/ProductContext'
 
 
 const AppContext = createContext([])
 
 function App() {  
   return (
-    //<ProductContextProvider>
+    <ProductContextProvider>
       <CartContextProvider>
         <Rutas>      
           <Layout>
           <div className="App"> 
-              <Routes>
-                  <Route index path='/' element={<ItemListContainer />} />
+              <Routes>                
+                  <Route index path='/' element={<><SliderHome/><ItemListContainer /></>} />
                   <Route path='/producto/:categoriaId/search/:filtro/:valor' element={<ItemListContainer/>} />
                   <Route path='/producto/:categoriaId' element={<ItemListContainer/>} />
                   {/* <Route path='/marca/:categoriaId' element={<ItemListContainer/>} />  */}
                   <Route path='/detalle/:id' element={<ItemDetailContainer/>} /> 
                   <Route path='/contacto' element={<ItemPaginaContacto />} />
                   <Route path='/carrito' element={<ItemPaginaCarrito/>} />
+                  <Route path='/deseos' element={<PaginaDeseos/>} />
                   <Route path='*' element={<Navigate to=''/>} />              
               </Routes>          
           </div>
           </Layout>
         </Rutas> 
       </CartContextProvider>  
-    //</ProductContextProvider>
+    </ProductContextProvider>
   );
 }
 

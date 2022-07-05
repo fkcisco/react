@@ -10,6 +10,10 @@ export const CartContextProvider = ({ children }) => {
 
     const[cart, setCart] = useState([])
 
+    const[whislist, setWhislist] = useState([])
+
+   
+
     
 
     const Toast = Swal.mixin({
@@ -61,6 +65,31 @@ export const CartContextProvider = ({ children }) => {
               
     }
 
+    const AddWishlist = ( producto ) => {
+        setWhislist([
+            ...whislist,
+            producto
+        ])
+        setLocalStorage(whislist)
+        Toast.fire({
+            icon: 'success',
+            title: 'Producto Agregado a Whislist'
+        })
+       
+
+    }
+
+    const setLocalStorage =( guardar ) => {
+        try {
+            setWhislist(guardar)
+                window.localStorage.setItem("Lista de deseos", JSON.stringify(guardar))
+            }
+        catch(error) {
+            console.log(error)
+        }
+
+    }
+
     const isInCart = ( id ) =>{
         return cart?.some((i)=> i.id === id)
     }
@@ -81,8 +110,8 @@ export const CartContextProvider = ({ children }) => {
             }
     }
 
-    const TotalCarrito = () =>{
-        return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
+    const TotalCarrito = ( objeto ) =>{
+        return objeto.reduce((acum,i) => acum + i.cantidad, 0 )   }
 
     const PrecioTotal = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precio), 0 )
@@ -123,6 +152,7 @@ return (
     <CartContext.Provider
         value={{
             cart,
+            whislist,
             addToCard,
             vaciarCarrito,
             DelProducto,
@@ -131,7 +161,8 @@ return (
             NumberWithCommas,
             PrecioDescuento,
             PrecioTotalDescuento,
-            MensajeValidar
+            MensajeValidar,
+            AddWishlist
         }}> 
 
        {children}

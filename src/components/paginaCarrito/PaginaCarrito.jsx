@@ -26,10 +26,7 @@ const PaginaCarrito = memo (
       const [phoneBuyer, setPhoneBuyer] = useState('')
       const [mailBuyer, setMailBuyer] = useState('')
 
-      const [idPedido, setIdPedido,] = useState('')
-
-
-         
+      const [idPedido, setIdPedido,] = useState('')         
     
       
 
@@ -68,15 +65,15 @@ const PaginaCarrito = memo (
                         try {
                             const docRef = await addDoc(ordenCollection, {orden} )
                             setIdPedido(docRef.id)
-                            console.log("Document written with ID: ", docRef.id);
+                            console.log("ID de refencia: ", docRef.id);
                             console.log(orden.buyer)
                         } catch (e) {
-                            console.error("Error adding document: ", e);
+                            console.error("Error: ", e);
                         }
 
                         const queryCollectionStock = collection(db,'productos')
                         
-                        const queryActualizarStock = query (
+                        const queryActualizarStock = await query (
                                 queryCollectionStock,
                                 where (documentId(),'in', cart.map(it => it.id))   
                               )

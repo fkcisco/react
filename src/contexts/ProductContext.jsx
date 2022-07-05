@@ -18,42 +18,44 @@ export const ProductContextProvider = ({ children }) => {
         
         const { categoriaId } = useParams()
         const { filtro } = useParams()  
-        const { valor } = useParams()
+        const { valor } = useParams()      
 
        
 
-        const ProductsList = () => {         
+       function ProductsList() {         
        
 
-        useEffect(()=>{
-            if(categoriaId && filtro && valor) {   
-            
-                const db = getFirestore()
-                const queryCollection = collection(db,'productos')
-                const queryCollectionFilter = query(queryCollection, where('tipoProducto','==', categoriaId), where(filtro,'==', valor))
-                getDocs(queryCollectionFilter)               
-                .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
-                .catch(err => console.log(err))
-                .finally(()=>setLoading(false)) 
+            useEffect(()=>{
+                if(categoriaId && filtro && valor) {   
                 
-           
-            } else {       
-                            const db = getFirestore()
-                            const queryCollection = collection(db,'productos')
-                            getDocs(queryCollection)
-                            .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
-                            .catch(err => console.log(err))
-                            .finally(()=>setLoading(false))
-                            
-                                   
-            }      
+                    const db = getFirestore()
+                    const queryCollection = collection(db,'productos')
+                    const queryCollectionFilter = query(queryCollection, where('tipoProducto','==', categoriaId), where(filtro,'==', valor))
+                    getDocs(queryCollectionFilter)               
+                    .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
+                    .catch(err => console.log(err))
+                    .finally(()=>setLoading(false))
+                    
+                    
             
-            console.log(objProductos)
-           
-        }, [bool])
+                } else {       
+                                const db = getFirestore()
+                                const queryCollection = collection(db,'productos')
+                                getDocs(queryCollection)
+                                .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
+                                .catch(err => console.log(err))
+                                .finally(()=>setLoading(false))
+                                
+                                
 
-        
 
+                }  
+                
+                
+            
+            }, [bool])
+
+            return [objProductos]
    }
 
   

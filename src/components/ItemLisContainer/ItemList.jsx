@@ -2,54 +2,53 @@ import {Row } from 'react-bootstrap'
 import Item  from '../itemCards/Item'
 import Cargando from '../../helpers/Cargando'
 import { memo, useState } from 'react'
-import { useEffect } from "react"
-import { getDocs, getFirestore, collection, query, where } from 'firebase/firestore'
-import {useParams} from 'react-router-dom' 
-//import { useProductContext } from '../../contexts/ProductContext'
+//import { useEffect } from "react"
+//import { getDocs, getFirestore, collection, query, where } from 'firebase/firestore'
+//import {useParams} from 'react-router-dom' 
+import { useProductContext } from '../../contexts/ProductContext'
 
 const ListItem = memo (
     () => {
       
-   //const { ProductsList , objProductos } = useProductContext() 
+   const { ProductsList } = useProductContext() 
   
-  const [loading, setLoading] = useState(true)     
-   
-  
+  const [loading, setLoading] = useState(true)  
 
-    const [objProductos, setObjProductos] = useState([]) 
-
-    const [bool, setBool] = useState(true)    
-        
-    const { categoriaId } = useParams()
-    const { filtro } = useParams()  
-    const { valor } = useParams()
+  const [productoProductContext] = useState(ProductsList())  
 
 
-  useEffect(()=>{
-    if(categoriaId && filtro && valor) {   
+  //     const [objProductos, setObjProductos] = useState([]) 
+
+  //     const [bool, setBool] = useState(true)    
+          
+  //     const { categoriaId } = useParams()
+  //     const { filtro } = useParams()  
+  //     const { valor } = useParams()
+
+
+  //   useEffect(()=>{
+  //     if(categoriaId && filtro && valor) {   
+      
+  //         const db = getFirestore()
+  //         const queryCollection = collection(db,'productos')
+  //         const queryCollectionFilter = query(queryCollection, where('tipoProducto','==', categoriaId), where(filtro,'==', valor))
+  //         getDocs(queryCollectionFilter)               
+  //         .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
+  //         .catch(err => console.log(err))
+  //         .finally(()=>setLoading(false))                
+      
+  //     } else {       
+  //                     const db = getFirestore()
+  //                     const queryCollection = collection(db,'productos')
+  //                     getDocs(queryCollection)
+  //                     .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
+  //                     .catch(err => console.log(err))
+  //                     .finally(()=>setLoading(false))               
+  //     } 
+      
     
-        const db = getFirestore()
-        const queryCollection = collection(db,'productos')
-        const queryCollectionFilter = query(queryCollection, where('tipoProducto','==', categoriaId), where(filtro,'==', valor))
-        getDocs(queryCollectionFilter)               
-        .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
-        .catch(err => console.log(err))
-        .finally(()=>setLoading(false))                
-    
-    } else {       
-                    const db = getFirestore()
-                    const queryCollection = collection(db,'productos')
-                    getDocs(queryCollection)
-                    .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
-                    .catch(err => console.log(err))
-                    .finally(()=>setLoading(false))               
-    } 
-    
-   
-    
-}, [{bool}]) 
-
-
+      
+  // }, [{bool}]) 
 
   return ( 
     
@@ -60,7 +59,7 @@ const ListItem = memo (
       <h1 className='py-5 text-center'>Catalogo de Zapatillas</h1>  
         <Row>
             
-            {objProductos.map(producto =>
+            {productoProductContext.map(producto =>
                 <Item key={producto.id} 
                 producto={producto} />
                 )}

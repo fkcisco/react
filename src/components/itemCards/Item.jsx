@@ -7,13 +7,14 @@ import {ListGroupItem } from 'react-bootstrap'
 import {Col } from 'react-bootstrap'
 import { NavLink} from 'react-router-dom'
 import { useCartContext } from '../../contexts/cartContext'
+import { BookmarkHeart, BookmarkHeartFill } from 'react-bootstrap-icons';
 import "./ItemCards.css"
 
 const ItemCard = memo (
   
 ({producto}) => { 
 
-  const { NumberWithCommas, PrecioDescuento  } = useCartContext()  
+  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar  } = useCartContext()  
 
   function numeroPunto( x ) {
     return NumberWithCommas(x)
@@ -22,18 +23,39 @@ const ItemCard = memo (
   function descuento( precio , descuento ) {
     return PrecioDescuento( precio , descuento)
   }
+ 
+
+function whislistAgregar() {
+    if(!isInWhislist(producto.id)) {
+          new Promise((resultado) => {
+            return AddWishlist( { ...producto } )
+        })   
+    .catch(() => {
+      console.log('error');
+   })      
+   } else {
+    MensajeValidar("El producto ya esta en lista de deseos")
+   }
+
+  }
+
+   const isInWhislist = ( id ) =>{
+    return whislist?.some((i)=> i.id === id)
+}
+
   
 
    return (    
       <Col className="col-3 g-1 text-center">
           <Card>
                  { producto.descuento > 0 && <Badge bg="warning" className='oferta'> Oferta {(producto.descuento*100)} % </Badge>  }
+                 {!isInWhislist(producto.id) ? <BookmarkHeart className='megusta' onClick={whislistAgregar}/> : <BookmarkHeartFill className='megusta'/> }
                   <Card.Img variant="top" src={producto.urlMiniatura}/>
                   <Card.Body>
                     <Card.Title>{producto.marca} </Card.Title>
                     <Card.Text>Modelo: {producto.modelo}</Card.Text>
                   </Card.Body>
-                  <ListGroup className="d-flex">                    
+                  {/* <ListGroup className="d-flex">                    
                     <p className='mb-0'>Talles Disponibles</p>                    
                     <h4>
                       {producto.talles.map(talle=>                         
@@ -42,15 +64,15 @@ const ItemCard = memo (
                           </Badge>                        
                       )}
                     </h4>
-                  </ListGroup>
+                  </ListGroup> */}
                   <ListGroup className="list-group-flush">                                
-                  <ListGroupItem>
+                  {/* <ListGroupItem>
                     {
                       producto.stock <= 0
                       ? <div> Sin Stock </div>
                       : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>
                     }
-                  </ListGroupItem>                    
+                  </ListGroupItem>                     */}
                     { 
                     producto.descuento !== 0
                     ? <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
@@ -60,7 +82,8 @@ const ItemCard = memo (
                     <Card.Body>
                     <NavLink to={`/detalle/${producto.id}`}>
                           <Button> Ver Producto</Button>
-                      </NavLink>
+                    </NavLink>
+                          <Button onClick={whislistAgregar}>Like</Button>
                     </Card.Body>
            </Card>
       </Col> 

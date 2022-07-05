@@ -42,7 +42,9 @@ const NavBar = () => {
          </NavDropdown>       
          
          
-         <NavLink to='/contacto' className={({ isActive }) => (isActive ? 'active nav-link' : 'inactive nav-link')}>Contacto</NavLink> 
+         <NavLink to='/contacto' className={({ isActive }) => (isActive ? 'active nav-link' : 'inactive nav-link')}>Contacto</NavLink>
+
+ 
 
          <CartWidget/> 
       

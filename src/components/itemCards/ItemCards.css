@@ -12,3 +12,18 @@
     margin: 10px;
     font-size: 1.3rem;
 }
+
+.megusta {
+  width: auto;
+    position: absolute;
+    right: 0;
+    color: red;
+    margin: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+
+}
+
+.megusta:hover {
+  color: black;
+}
