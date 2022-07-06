@@ -122,7 +122,7 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const TotalDeseos = () =>{
-        return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
+        return whislist.length   }
 
     const vaciarCarrito = () => {
         Toast.fire({

@@ -7,17 +7,21 @@ import { BookmarkHeart } from 'react-bootstrap-icons';
 
 const Carrito= () => {
 
-    const { cart, TotalCarrito, whislist, TotalDeseos } = useCartContext()    
+    const { cart, TotalCarrito, whislist, TotalDeseos } = useCartContext()
+    
+    console.log( TotalDeseos())
 
 return (  
             
         <>
 
+        
+
             { whislist.length >= 1 && (
                     <NavLink to="/deseos">
                         <Button variant="danger">
                             <BookmarkHeart/>                    
-                            { TotalDeseos() }
+                            { TotalDeseos()}
                         </Button>
                     </NavLink>             
             )
