@@ -14,7 +14,7 @@ const ItemCard = memo (
   
 ({producto}) => { 
 
-  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar  } = useCartContext()  
+  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar, TotalDeseos  } = useCartContext()  
 
   function numeroPunto( x ) {
     return NumberWithCommas(x)
@@ -28,8 +28,9 @@ const ItemCard = memo (
 function whislistAgregar() {
     if(!isInWhislist(producto.id)) {
           new Promise((resultado) => {
-            return AddWishlist( { ...producto } )
-        })   
+            return AddWishlist( { ...producto } )            
+        }) 
+        console.log(whislist)  
     .catch(() => {
       console.log('error');
    })      
@@ -82,8 +83,7 @@ function whislistAgregar() {
                     <Card.Body>
                     <NavLink to={`/detalle/${producto.id}`}>
                           <Button> Ver Producto</Button>
-                    </NavLink>
-                          <Button onClick={whislistAgregar}>Like</Button>
+                    </NavLink>                         
                     </Card.Body>
            </Card>
       </Col> 

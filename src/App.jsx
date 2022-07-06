@@ -15,14 +15,14 @@ import { CartContextProvider } from './contexts/cartContext'
 import PaginaDeseos from './components/paginaDeseos/PaginaDeseos'
 import SliderHome from  './components/slider/SliderHome'
 
-import { ProductContextProvider } from './contexts/ProductContext'
+//import { ProductContextProvider } from './contexts/ProductContext'
 
 
 const AppContext = createContext([])
 
 function App() {  
   return (
-    <ProductContextProvider>
+    //<ProductContextProvider>
       <CartContextProvider>
         <Rutas>      
           <Layout>
@@ -42,7 +42,7 @@ function App() {
           </Layout>
         </Rutas> 
       </CartContextProvider>  
-    </ProductContextProvider>
+    //</ProductContextProvider>
   );
 }
 

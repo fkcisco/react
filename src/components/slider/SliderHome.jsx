@@ -16,8 +16,8 @@ function sliderHome() {
                     alt="First slide"
                     />
                     <Carousel.Caption>
-                    <h3>Titulo 1</h3>
-                    <p>Detalle del slider numero 1</p>
+                    <h3>Zapatillas</h3>
+                    <p>Encontra las mejores zapatillas del mercado</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -29,7 +29,7 @@ function sliderHome() {
                     />
 
                     <Carousel.Caption>
-                    <h3>Titulo 2</h3>
+                    <h3>Medias</h3>
                     <p>Detalle del slider numero 2</p>
                     </Carousel.Caption>
                 </Carousel.Item>

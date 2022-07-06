@@ -70,7 +70,7 @@ export const CartContextProvider = ({ children }) => {
             ...whislist,
             producto
         ])
-        setLocalStorage(whislist)
+        // setLocalStorage(whislist)
         Toast.fire({
             icon: 'success',
             title: 'Producto Agregado a Whislist'
@@ -79,16 +79,16 @@ export const CartContextProvider = ({ children }) => {
 
     }
 
-    const setLocalStorage =( guardar ) => {
-        try {
-            setWhislist(guardar)
-                window.localStorage.setItem("Lista de deseos", JSON.stringify(guardar))
-            }
-        catch(error) {
-            console.log(error)
-        }
+    // const setLocalStorage =( guardar ) => {
+    //     try {
+    //         setWhislist(guardar)
+    //             window.localStorage.setItem("Lista de deseos", JSON.stringify(guardar))
+    //         }
+    //     catch(error) {
+    //         console.log(error)
+    //     }
 
-    }
+    // }
 
     const isInCart = ( id ) =>{
         return cart?.some((i)=> i.id === id)
@@ -110,8 +110,8 @@ export const CartContextProvider = ({ children }) => {
             }
     }
 
-    const TotalCarrito = ( objeto ) =>{
-        return objeto.reduce((acum,i) => acum + i.cantidad, 0 )   }
+    const TotalCarrito = () =>{
+        return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
 
     const PrecioTotal = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precio), 0 )
@@ -120,6 +120,9 @@ export const CartContextProvider = ({ children }) => {
     const PrecioTotalDescuento = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precioFinal), 0 )
     }
+
+    const TotalDeseos = () =>{
+        return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
 
     const vaciarCarrito = () => {
         Toast.fire({
@@ -158,6 +161,7 @@ return (
             DelProducto,
             PrecioTotal,
             TotalCarrito,
+            TotalDeseos,
             NumberWithCommas,
             PrecioDescuento,
             PrecioTotalDescuento,

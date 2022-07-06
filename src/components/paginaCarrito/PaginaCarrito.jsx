@@ -112,7 +112,12 @@ const PaginaCarrito = memo (
                     <Row>
                             {cart.length < 1 ? (
                                 <div className='text-center'>
-                                    { idPedido && <h1>Tu orden de Compra es: { idPedido }</h1> }
+                                    { idPedido &&
+                                        <div>
+                                            <h1>Tu orden de Compra es: { idPedido }</h1>
+                                             <div className="text-center mb-2"><Button variant="primary" >Pagar</Button></div>
+                                        </div>
+                                    }
                                     <h2 className='my-5'>Carrito Vacio</h2>
                                     <NavLink to="/"><Button variant="primary" >Ir a Comprar</Button></NavLink>
                                 </div> 
@@ -152,8 +157,7 @@ const PaginaCarrito = memo (
                                 <h4 className='text-center fw-bold mb-3'>Detalle de Carrito</h4>              
                                 <div className="text-center"> <p className='fw-bold'>Total {TotalCarrito()} Productos: ${numeroPunto(PrecioTotalDescuento())}</p> </div>
                                 {PrecioTotalDescuento() !== PrecioTotal() && <div className="text-center"> <p className='fw-bold'>Estas Ahorrando: ${numeroPunto(PrecioTotal() - PrecioTotalDescuento())}</p> </div> }
-                                <div className="text-center mb-2"><Button variant="primary" >Pagar</Button></div>
-                                <Form>
+                               <Form>
                                     <Form.Group className="mb-3 text-center">
                                         {/* <Form.Label htmlFor="nombre">Nombre</Form.Label> */}
                                         <Form.Control type="text" id="nombreOrden" placeholder="Ingresar Nombre" onChange={event => setNameBuyer(event.target.value)}/>

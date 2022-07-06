@@ -1,21 +1,23 @@
 import {Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import { useCartContext } from '../../contexts/cartContext'
+import { BookmarkHeart } from 'react-bootstrap-icons';
 
 
 
 const Carrito= () => {
 
-    const { cart, TotalCarrito, whislist  } = useCartContext()    
+    const { cart, TotalCarrito, whislist, TotalDeseos } = useCartContext()    
 
 return (  
             
         <>
 
             { whislist.length >= 1 && (
-                    <NavLink to="/">
-                        <Button variant="primary">                    
-                            { `${TotalCarrito(whislist)} Productos`}
+                    <NavLink to="/deseos">
+                        <Button variant="danger">
+                            <BookmarkHeart/>                    
+                            { TotalDeseos() }
                         </Button>
                     </NavLink>             
             )
@@ -27,7 +29,7 @@ return (
                     <Button variant="primary">                    
                         { cart.length >= 3 
                             ?"Terminar Compra"
-                            :`${TotalCarrito(cart)} Productos`        
+                            :`${TotalCarrito()} Productos`        
                         }
                     </Button>
                 </NavLink>             
