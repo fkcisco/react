@@ -25,6 +25,7 @@ const PaginaCarrito = memo (
       const [nameBuyer, setNameBuyer] = useState('')
       const [phoneBuyer, setPhoneBuyer] = useState('')
       const [mailBuyer, setMailBuyer] = useState('')
+      const [mailBuyerControl, setMailBuyerControl] = useState('')
 
       const [idPedido, setIdPedido,] = useState('')         
     
@@ -60,6 +61,8 @@ const PaginaCarrito = memo (
                         MensajeValidar("debe completar el campo Teléfono")
                     } else if(!mailBuyer) {                         
                         MensajeValidar("debe completar el campo Mail")
+                    } else if(mailBuyer !== mailBuyerControl) {                         
+                        MensajeValidar("El Mail de control debe considir")
                     } else { 
 
                         try {
@@ -164,7 +167,8 @@ const PaginaCarrito = memo (
                                         {/* <Form.Label className="text-center">Teléfono</Form.Label> */}
                                         <Form.Control type="phone" id="telefonoOrden" placeholder="Ingresar Teléfono" onChange={event => setPhoneBuyer(event.target.value)}/> 
                                         {/* <Form.Label className="text-center">Email</Form.Label> */}
-                                        <Form.Control type="email" id="mailOrden" placeholder="Ingresar Mail" onChange={event => setMailBuyer(event.target.value)}/>                                       
+                                        <Form.Control type="email" id="mailOrden" placeholder="Ingresar Mail" onChange={event => setMailBuyer(event.target.value)}/>
+                                        { mailBuyer && <Form.Control type="email" id="setMailBuyerControl" placeholder="Corroborar Mail Mail" onChange={event => setMailBuyerControl(event.target.value)}/> }                                    
                                     </Form.Group>
                                     
                                    

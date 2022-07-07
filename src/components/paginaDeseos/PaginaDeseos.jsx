@@ -26,7 +26,7 @@ const PaginaDeseos = memo (
                                     <NavLink to="/"><Button variant="primary" >Likear Productos</Button></NavLink>
                                 </div> 
                             ) : (
-                                <Col sm={9} className="detalleCarrito" >                                 
+                                <Col sm={12} className="detalleCarrito" >                                 
                                 {whislist.map(item =>
                                             <Row key={item.id} className='align-items-center' >                                                                                 
                                                     <Col >

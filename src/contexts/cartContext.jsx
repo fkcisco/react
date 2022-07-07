@@ -110,6 +110,22 @@ export const CartContextProvider = ({ children }) => {
             }
     }
 
+    const DelWhishlist = ( id ) => {       
+        const items = whislist.filter((producto)=> producto.id !== id)            
+            // if(whislist.length === 1) {
+            //         vaciarCarrito()
+            // } else {
+            setCart(
+                [...items]
+                )
+            Toast.fire({
+                    icon: 'success',
+                    title: 'Borraste el producto de Lista de deseos'
+                })
+                
+            // }
+    }
+
     const TotalCarrito = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
 
@@ -159,6 +175,7 @@ return (
             addToCard,
             vaciarCarrito,
             DelProducto,
+            DelWhishlist,
             PrecioTotal,
             TotalCarrito,
             TotalDeseos,

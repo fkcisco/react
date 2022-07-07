@@ -14,7 +14,7 @@ const ItemCard = memo (
   
 ({producto}) => { 
 
-  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar, TotalDeseos  } = useCartContext()  
+  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar, TotalDeseos, DelWhishlist  } = useCartContext()  
 
   function numeroPunto( x ) {
     return NumberWithCommas(x)
@@ -42,7 +42,7 @@ function whislistAgregar() {
 
    const isInWhislist = ( id ) =>{
     return whislist?.some((i)=> i.id === id)
-}
+  }
 
   
 
@@ -50,7 +50,7 @@ function whislistAgregar() {
       <Col className="col-3 g-1 text-center">
           <Card>
                  { producto.descuento > 0 && <Badge bg="warning" className='oferta'> Oferta {(producto.descuento*100)} % </Badge>  }
-                 {!isInWhislist(producto.id) ? <BookmarkHeart className='megusta' onClick={whislistAgregar}/> : <BookmarkHeartFill className='megusta'/> }
+                 {!isInWhislist(producto.id) ? <BookmarkHeart className='megusta' onClick={whislistAgregar}/> : <BookmarkHeartFill onClick={DelWhishlist} className='megusta'/> }
                   <Card.Img variant="top" src={producto.urlMiniatura}/>
                   <Card.Body>
                     <Card.Title>{producto.marca} </Card.Title>
