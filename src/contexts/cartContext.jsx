@@ -10,12 +10,10 @@ export const CartContextProvider = ({ children }) => {
 
     const[cart, setCart] = useState([])
 
-    const[whislist, setWhislist] = useState([])
-
-   
-
     
 
+    const[whislist, setWhislist] = useState([])   
+   
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -110,26 +108,29 @@ export const CartContextProvider = ({ children }) => {
             }
     }
 
-    const DelWhishlist = ( id ) => {       
+    const DelProductoDeseos = ( id ) => {       
         const items = whislist.filter((producto)=> producto.id !== id)            
-            // if(whislist.length === 1) {
-            //         vaciarCarrito()
-            // } else {
-            setCart(
+            if(whislist.length === 1) {
+                    vaciarCarrito()
+            } else {
+            setWhislist(
                 [...items]
                 )
             Toast.fire({
                     icon: 'success',
-                    title: 'Borraste el producto de Lista de deseos'
+                    title: 'Producto Eliminado Correctamente'
                 })
                 
-            // }
+            }
     }
+
+    
 
     const TotalCarrito = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
 
-    const PrecioTotal = () =>{
+    
+        const PrecioTotal = () =>{
         return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precio), 0 )
     }
     
@@ -175,7 +176,7 @@ return (
             addToCard,
             vaciarCarrito,
             DelProducto,
-            DelWhishlist,
+            DelProductoDeseos,
             PrecioTotal,
             TotalCarrito,
             TotalDeseos,
@@ -184,6 +185,7 @@ return (
             PrecioTotalDescuento,
             MensajeValidar,
             AddWishlist
+        
         }}> 
 
        {children}

@@ -1,6 +1,6 @@
 import {Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
-import { useCartContext } from '../../contexts/cartContext'
+import { useCartContext } from '../../contexts/CartContext'
 import { BookmarkHeart, CaretDownFill } from 'react-bootstrap-icons';
 import {OverlayTrigger, Popover, Col, Row} from 'react-bootstrap'
 

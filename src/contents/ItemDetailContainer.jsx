@@ -1,6 +1,6 @@
 import {Container } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
-import ItemDetail from '../components/itemListDetail/ItemDetail'
+import ItemDetail from '../components/itemListDetail/ItemListDetail'
 //import {getFetch} from '../helpers/getFetch'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import {useParams} from 'react-router-dom' 

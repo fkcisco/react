@@ -6,7 +6,7 @@ import {Button } from 'react-bootstrap'
 import {ListGroupItem } from 'react-bootstrap'
 import {Col } from 'react-bootstrap'
 import { NavLink} from 'react-router-dom'
-import { useCartContext } from '../../contexts/cartContext'
+import { useCartContext } from '../../contexts/CartContext'
 import { BookmarkHeart, BookmarkHeartFill } from 'react-bootstrap-icons';
 import "./ItemCards.css"
 
@@ -14,7 +14,7 @@ const ItemCard = memo (
   
 ({producto}) => { 
 
-  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar, TotalDeseos, DelWhishlist  } = useCartContext()  
+  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar, TotalDeseos, DelWhishlist, DelProductoDeseos  } = useCartContext()  
 
   function numeroPunto( x ) {
     return NumberWithCommas(x)
@@ -29,8 +29,7 @@ function whislistAgregar() {
     if(!isInWhislist(producto.id)) {
           new Promise((resultado) => {
             return AddWishlist( { ...producto } )            
-        }) 
-        console.log(whislist)  
+        })
     .catch(() => {
       console.log('error');
    })      
@@ -47,10 +46,10 @@ function whislistAgregar() {
   
 
    return (    
-      <Col className="col-3 g-1 text-center">
+      <Col className="col-2 g-1 text-center">
           <Card>
-                 { producto.descuento > 0 && <Badge bg="warning" className='oferta'> Oferta {(producto.descuento*100)} % </Badge>  }
-                 {!isInWhislist(producto.id) ? <BookmarkHeart className='megusta' onClick={whislistAgregar}/> : <BookmarkHeartFill onClick={DelWhishlist} className='megusta'/> }
+                 { producto.descuento > 0 && <Badge bg="warning" className='oferta'> {(producto.descuento*100)} % OFF </Badge>  }
+                 {!isInWhislist(producto.id) ? <BookmarkHeart className='megusta' onClick={whislistAgregar}/> : <BookmarkHeartFill onClick={() => DelProductoDeseos(producto.id)} className='megusta'/> }
                   <Card.Img variant="top" src={producto.urlMiniatura}/>
                   <Card.Body>
                     <Card.Title>{producto.marca} </Card.Title>

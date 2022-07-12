@@ -1,8 +1,8 @@
 import {ListGroup, Row } from 'react-bootstrap'
 import {Col } from 'react-bootstrap'
 import {Tabs, Tab, Badge} from 'react-bootstrap'
-import ItemCount from '../contadorProducto/ItemCount'
-import { useCartContext } from '../../contexts/cartContext'
+import ItemCount from '../itemCount/ItemCount'
+import { useCartContext } from '../../contexts/CartContext'
 import { useState } from 'react'
 
 
@@ -59,7 +59,7 @@ function ItemSingle({ ver }){
                 </Form.Select>
               </Col>*/}
               <Col sm={12} className="d-flex">
-                <ItemCount stock={ver.stock} init='1' talles={ver.talles} ident={ver.id} onAdd={onAdd} precioFinal={precioFinal}/>
+                <ItemCount stock={ver.stock} init='1' talles={ver.talles} ident={ver.id} onAdd={onAdd} precioFinal={precioFinal} talleStock={ver.talleStock}/>
 
               </Col>
               </Row>

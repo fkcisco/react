@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { InputGroup } from 'react-bootstrap'
 import { Button, Form } from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
-import './contadorProducto.css'
+import './itemCount.css'
 
 const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
     

@@ -5,13 +5,26 @@ import { addDoc, collection, getFirestore, updateDoc, doc, getDocs, where, docum
 import {Col} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
-import { useCartContext } from '../../contexts/cartContext'
+import { useCartContext } from '../../contexts/CartContext'
 import "./paginaCarrito.css"
+import Cargando from '../../helpers/Cargando'
+
 
 const PaginaCarrito = memo (
-() => {
+() => {     
+
+    const [loading, setLoading] = useState(false)
     
-    const { cart, vaciarCarrito, DelProducto, PrecioTotal, TotalCarrito, NumberWithCommas, PrecioDescuento, PrecioTotalDescuento, MensajeValidar  } = useCartContext()  
+    const { cart, 
+            vaciarCarrito,
+            DelProducto, 
+            PrecioTotal, 
+            TotalCarrito, 
+            NumberWithCommas, 
+            PrecioDescuento, 
+            PrecioTotalDescuento, 
+            MensajeValidar,
+            } = useCartContext()  
     
     
     function numeroPunto( x ) {
@@ -29,10 +42,14 @@ const PaginaCarrito = memo (
 
       const [idPedido, setIdPedido,] = useState('')         
     
-      
+      console.log(loading)
 
         async function generarOrden(e){
-                    e.preventDefault()                    
+                    setLoading(true)
+                    
+                    e.preventDefault()  
+                    
+                    
                    
                     const orden = {}
 
@@ -41,12 +58,12 @@ const PaginaCarrito = memo (
                         phone: phoneBuyer,
                         mail: mailBuyer,
                             }
-                    orden.total = PrecioTotal()
+                    orden.total = PrecioTotalDescuento()
 
                     orden.items = cart.map(cartItem => {
                         const ordenId = cartItem.id
                         const orderNombre = cartItem.modelo
-                        const ordenPrecio = cartItem.precio * cartItem.cantidad
+                        const ordenPrecio = cartItem.descuento >= 1 ? (descuento(cartItem.precio,cartItem.descuento) * cartItem.cantidad) : (cartItem.precio * cartItem.cantidad)
 
                         return {ordenId, orderNombre, ordenPrecio}
                     })
@@ -69,7 +86,7 @@ const PaginaCarrito = memo (
                             const docRef = await addDoc(ordenCollection, {orden} )
                             setIdPedido(docRef.id)
                             console.log("ID de refencia: ", docRef.id);
-                            console.log(orden.buyer)
+                            console.log(orden)
                         } catch (e) {
                             console.error("Error: ", e);
                         }
@@ -90,14 +107,15 @@ const PaginaCarrito = memo (
                                             stock:
                                             res.data().stock - cart.find(item => item.id === res.id).cantidad
                                                     })  
-                                ))  
-                        .finally(() => vaciarCarrito())                
+                                ))                      
+                        .finally(() => vaciarCarrito())             
                        
     
                         batch.commit()
+                        
                     }
                     
-                             
+                    setLoading(false)        
                     
 
                 }
@@ -107,20 +125,34 @@ const PaginaCarrito = memo (
     return (        
                 <Container>          
                     <Row className='mb-5 text-center'>
-                        <h1 className='my-5'>Carrito de compras</h1>                    
+                        <h1 className='my-5'>Carrito de compras</h1>                   
                                 
                                
                     </Row>            
                     <Row>
                     <Row>
-                            {cart.length < 1 ? (
-                                <div className='text-center'>
-                                    { idPedido &&
-                                        <div>
-                                            <h1>Tu orden de Compra es: { idPedido }</h1>
-                                             <div className="text-center mb-2"><Button variant="primary" >Pagar</Button></div>
-                                        </div>
+                            
+                            
+                                    {
+                                        loading ?                                             
+                                                <Row className='d-flexjustify-content-md-center'>
+                                                    <Cargando titulo='Orden de Compra' />
+                                                </Row>
+                                                  
+                                        :
+                                            
+                                                idPedido &&
+                                                    <div className='text-center'>
+                                                        <h1>Tu orden de Compra es: { idPedido }</h1>
+                                                        <div className="text-center mb-2"><Button variant="primary" >Pagar</Button></div>
+                                                    </div>
+                                           
+                                        
                                     }
+                            
+                            
+                            {cart.length < 1 ? (
+                                <div className='text-center'>                                    
                                     <h2 className='my-5'>Carrito Vacio</h2>
                                     <NavLink to="/"><Button variant="primary" >Ir a Comprar</Button></NavLink>
                                 </div> 

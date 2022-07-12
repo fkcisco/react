@@ -1,16 +1,16 @@
 import { memo, useState } from 'react'
-import {Container, Form} from 'react-bootstrap'
+import {Container} from 'react-bootstrap'
 import {Row} from 'react-bootstrap'
 import {Col} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
-import { useCartContext } from '../../contexts/cartContext'
+import { useCartContext } from '../../contexts/CartContext'
 //import "./paginaCarrito.css"
 
 const PaginaDeseos = memo (
 () => {
     
-    const { whislist  } = useCartContext()        
+    const { whislist, DelProductoDeseos  } = useCartContext()        
 
 
     return (        
@@ -37,6 +37,12 @@ const PaginaDeseos = memo (
                                                     </Col>
                                                     <Col >
                                                         <p className='text-capitalize'>{item.modelo}</p>                                                                            
+                                                    </Col>
+                                                    <Col >
+                                                    <NavLink to={`/detalle/${item.id}`}>
+                                                        <Button> Ver Producto</Button>
+                                                    </NavLink>
+                                                    <Button variant="danger" onClick={() => DelProductoDeseos(item.id)} >x</Button>                                                                           
                                                     </Col>                                                   
                                             </Row >
                                     )
