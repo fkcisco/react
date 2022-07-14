@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useEffect } from "react"
 import { createContext, useContext } from "react"
 import Swal from "sweetalert2"
 
@@ -10,9 +11,11 @@ export const CartContextProvider = ({ children }) => {
 
     const[cart, setCart] = useState([])
 
+    const[whislist, setWhislist] = useState([])
+
     
 
-    const[whislist, setWhislist] = useState([])   
+    // const[whislist, setWhislist] = useState([])   
    
     const Toast = Swal.mixin({
         toast: true,
@@ -60,18 +63,64 @@ export const CartContextProvider = ({ children }) => {
 
         }
 
-              
+          
+    
     }
+
+    
+    
+      
+      useEffect(() => {
+        const listaDeseos = JSON.parse(localStorage.getItem('Deseos'))        
+        if (listaDeseos.length >= 1) {
+            setWhislist(listaDeseos)
+        }
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem('Deseos', JSON.stringify(whislist))
+      }, [whislist])
+
+
+
+      useEffect(() => {
+        const listaCarrito = JSON.parse(localStorage.getItem('Carrito'))        
+        
+        if (listaCarrito.length >= 1) {
+            setCart(listaCarrito)
+            Swal.fire({
+                title: "Tenes Productos pendientes en el carrito",
+                showDenyButton: true,
+                denyButtonText: "Seguir Comprando",
+                denyButtonColor: "grey",
+                confirmButtonText: "Pagar",
+                confirmButtonColor: "#4c4",
+              }).then((res) => {
+                if (res.isConfirmed) {
+                    
+                }
+                if (res.isDenied) {
+                 
+                }
+              })
+        }
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem('Carrito', JSON.stringify(cart))
+      }, [cart])
+
+
+
 
     const AddWishlist = ( producto ) => {
         setWhislist([
             ...whislist,
             producto
-        ])
-        // setLocalStorage(whislist)
+        ])        
         Toast.fire({
             icon: 'success',
-            title: 'Producto Agregado a Whislist'
+            title: 'Producto  Agregado a Whislist'
         })
        
 

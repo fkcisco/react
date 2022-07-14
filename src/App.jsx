@@ -13,14 +13,15 @@ import Layout from "./Index.jsx";
 import { createContext } from 'react'
 import { CartContextProvider } from './contexts/CartContext'
 import PaginaDeseos from './components/paginaDeseos/PaginaDeseos'
-import SliderHome from  './components/slider/Slider'
-
 import { ProductContextProvider } from './contexts/ProductContext'
+import ItemListIndex from './contents/ItemListIndex'
 
 
 const AppContext = createContext([])
 
+
 function App() {  
+
   return (
     <ProductContextProvider>
       <CartContextProvider>
@@ -28,10 +29,9 @@ function App() {
           <Layout>
           <div className="App"> 
               <Routes>                
-                  <Route index path='/' element={<><SliderHome/><ItemListContainer /></>} />
+                  <Route index path='/' element={<ItemListIndex/> } />
                   <Route path='/producto/:categoriaId/search/:filtro/:valor' element={<ItemListContainer/>} />
                   <Route path='/producto/:categoriaId' element={<ItemListContainer/>} />
-                  {/* <Route path='/marca/:categoriaId' element={<ItemListContainer/>} />  */}
                   <Route path='/detalle/:id' element={<ItemDetailContainer/>} /> 
                   <Route path='/contacto' element={<ItemPaginaContacto />} />
                   <Route path='/carrito' element={<ItemPaginaCarrito/>} />

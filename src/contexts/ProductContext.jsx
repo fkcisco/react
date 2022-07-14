@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { createContext, useContext } from "react"
-import { useParams} from 'react-router-dom' 
-import { getDocs, getFirestore, collection, query, where } from 'firebase/firestore'
+import { getDocs, getFirestore, collection} from 'firebase/firestore'
 import { useEffect } from "react"
+import { CardList } from "react-bootstrap-icons"
 
 
 const ProductContext = createContext([])
@@ -13,29 +13,26 @@ export const ProductContextProvider = ({ children }) => {
 
         
 
-        const [bool, setBool] = useState(true)
+        // const [bool, setBool] = useState(true)
         const [loading, setLoading] = useState(true)
         const [objProductos, setObjProductos] = useState([]) 
         
-        const { categoriaId } = useParams()
-        const { filtro } = useParams()  
-        const { valor } = useParams()  
+        // const { categoriaId } = useParams()
+        // const { filtro } = useParams()  
+        // const { valor } = useParams()  
         
        
-        function ProductsList() {       
-       
-            console.log("aca llegue")
-        
-            useEffect(()=>{
-                if(categoriaId && filtro && valor) {  
-                    const db = getFirestore()
-                    const queryCollection = collection(db,'productos')
-                    const queryCollectionFilter = query(queryCollection, where('tipoProducto','==', categoriaId), where(filtro,'==', valor))
-                    getDocs(queryCollectionFilter)                                 
-                    .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
-                    .catch(err => console.log(err))
-                    .finally(()=>setLoading(false))                   
-                } else {       
+        const productsList = () => {           
+           
+                // if(categoriaId && filtro && valor) {  
+                //     const db = getFirestore()
+                //     const queryCollection = collection(db,'productos')
+                //     const queryCollectionFilter = query(queryCollection, where('tipoProducto','==', categoriaId), where(filtro,'==', valor))
+                //     getDocs(queryCollectionFilter)                                 
+                //     .then(data => setObjProductos(data.docs.map( item => ({id: item.id, ...item.data() } ) ) ) )
+                //     .catch(err => console.log(err))
+                //     .finally(()=>setLoading(false))                   
+                // } else {       
                     const db = getFirestore()
                     const queryCollection = collection(db,'productos')
                     getDocs(queryCollection)
@@ -43,14 +40,20 @@ export const ProductContextProvider = ({ children }) => {
                     .catch(err => console.log(err))
                     .finally(()=>setLoading(false))                              
                                 
-                }                 
-                
-            
-            }, [bool])          
-            
-            return objProductos
-   }
+                // }                
+             
+            return objProductos        
 
+        }     
+
+        
+        //   useEffect(() => {
+        //       return productsList()
+        //   }, [])
+
+        //useEffect(()=> productsList(), []) 
+        
+         useEffect(()=> productsList, []) 
 
 
     return (
@@ -58,7 +61,7 @@ export const ProductContextProvider = ({ children }) => {
             value={{
                 objProductos,
                 loading,
-                ProductsList      
+                productsList      
             }}> 
     
            {children}

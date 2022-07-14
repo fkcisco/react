@@ -24,7 +24,6 @@ const ItemDetailContainer= () => {
     // }, [id]) 
     
     useEffect(() => {
-
       const db = getFirestore()
       const queryItem = doc(db,'productos', id)
       getDoc(queryItem) // promesa
