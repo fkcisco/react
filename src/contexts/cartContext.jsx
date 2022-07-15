@@ -37,7 +37,7 @@ export const CartContextProvider = ({ children }) => {
                 if(isInCart(item.id)) {
                     Toast.fire({
                         icon: 'error',
-                        title: 'El Producto ya Existe. Se puede comprar un mismo talle en el mismo modelo por pedido'
+                        title: item.modelo+ ' ya Existe. Se puede comprar un mismo talle en el mismo modelo por pedido'
                     })
                 } else if( item.cantidad < 1){
                     Toast.fire({
@@ -51,7 +51,7 @@ export const CartContextProvider = ({ children }) => {
                         ])                       
                     Toast.fire({
                             icon: 'success',
-                            title: 'Producto Agregado Correctamente'
+                            title: item.marca + ' - ' + item.modelo + '  Agregado Correctamente'
                         })
                         
                 }
@@ -86,7 +86,7 @@ export const CartContextProvider = ({ children }) => {
       useEffect(() => {
         const listaCarrito = JSON.parse(localStorage.getItem('Carrito'))        
         
-        if (listaCarrito.length >= 1) {
+        if (listaCarrito != null && listaCarrito.length >= 1) {
             setCart(listaCarrito)
             Swal.fire({
                 title: "Tenes Productos pendientes en el carrito",
@@ -120,7 +120,7 @@ export const CartContextProvider = ({ children }) => {
         ])        
         Toast.fire({
             icon: 'success',
-            title: 'Producto  Agregado a Whislist'
+            title: producto.marca + ' - ' + producto.modelo + ' agregado a Lista de Deseos'
         })
        
 
@@ -151,7 +151,7 @@ export const CartContextProvider = ({ children }) => {
                 )
             Toast.fire({
                     icon: 'success',
-                    title: 'Producto Eliminado Correctamente'
+                    title: 'Producto Eliminado Correctamente del Carrito'
                 })
                 
             }
@@ -167,7 +167,7 @@ export const CartContextProvider = ({ children }) => {
                 )
             Toast.fire({
                     icon: 'success',
-                    title: 'Producto Eliminado Correctamente'
+                    title: 'Producto Eliminado Correctamente de la Lista de Deseos'
                 })
                 
             }

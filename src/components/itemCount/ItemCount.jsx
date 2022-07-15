@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import './itemCount.css'
 
-const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
+const Contador= ({key, stock, init, ident, onAdd, talles, precioFinal}) => {
     
     const [ count, setCount ] = useState(parseFloat(init))
     const [ talle, setTalle ] = useState()  
@@ -31,7 +31,34 @@ const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
       // const AgregarCarrito = () => {    
       //   onAdd(count, talle, precioFinal)
       //   //setBotonAgregar(false)
-      // }   
+      // } 
+      
+      const ImputCount = () =>{
+        return (
+            <>
+            <NavLink to="/carrito"><Button variant="primary">Ir al Carrito</Button></NavLink>
+            <NavLink to="/"><Button variant="secondary">Seguir Comprando</Button></NavLink>     
+            </>
+        )
+    }
+    
+    const ButtonCount = ({handleInter}) =>{
+         //<Button variant="outline-primary" onClick={handleInter}>Agregar</Button>
+         return <Button variant="outline-primary" onClick={handleInter}>Agregar</Button>
+
+    }
+
+    const [inputType, setInputType ] = useState("button")
+    
+    const handleInter = () => {
+            setInputType("input")
+            CarritoAgregar()
+            
+    }
+
+
+
+
       
 
     const capturarTalle = ( e ) => {
@@ -42,19 +69,25 @@ const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
     return ( 
             <>     
               <div className="d-flex">
-                { botonAgregar === true ? (  
-                    <>
+                 
                         { stock >= 1 && (
                             <>
-                                  <Form.Select className='talle' aria-label="Default select example" onChange={capturarTalle}>
-                                    <option value="0">Talles Disponibles</option>
-                                    {talles.map(talle=> <option key={talle}>{talle}</option> )}
-                                    </Form.Select>
-                                    <InputGroup className="mb-3 outline-secondary justify-content-between form-control p-0">
-                                      <Button variant="primary" onClick={descontar}>-</Button>
-                                      <p className='cantidad'>{stock <= 0 ? 0 : count }</p>
-                                      <Button variant="primary" onClick={agregar}>+</Button>
-                                    </InputGroup>
+                                  {
+                                  inputType === "button" &&
+                                  (
+                                    <>
+                                    <Form.Select className='talle' aria-label="Default select example" onChange={capturarTalle}>
+                                      <option value="0">Talles Disponibles</option>
+                                      {talles.map(talle=> <option key={talle}>{talle}</option> )}
+                                      </Form.Select>
+                                      <InputGroup className="mb-3 outline-secondary justify-content-between form-control p-0">
+                                        <Button variant="primary" onClick={descontar}>-</Button>
+                                        <p className='cantidad'>{stock <= 0 ? 0 : count }</p>
+                                        <Button variant="primary" onClick={agregar}>+</Button>
+                                      </InputGroup>
+                                    </> 
+                                    )
+                                    }
                               </> 
                                             ) 
                         }
@@ -65,25 +98,19 @@ const Contador= ({stock, init, ident, onAdd, talles, precioFinal}) => {
                                             <Button variant="danger" id={ident}>Sin Stock</Button><NavLink to="/">
                                             <Button variant="outline-primary">Seguir Comprando</Button></NavLink>
                                           </> 
-                                          ):(
-                                                              
-                                          <Button variant="outline-primary" onClick={CarritoAgregar}>Agregar</Button>
+                                          ):(                                                             
+                                            <> 
+                                              {
+                                                  inputType === "button"
+                                                  ? <ButtonCount handleInter={handleInter} id={ident}/>
+                                                  : <ImputCount id={ident}/>
+                                              }
+                                          </>
+                                            
                                         ) 
                         }
-                    </>
-                    ) 
-                   : 
-                   (                    
-                      <>
-                        <NavLink to="/carrito"><Button variant="primary">Ir al Carrito</Button></NavLink>
-                        <NavLink to="/"><Button variant="secondary">Seguir Comprando</Button></NavLink>     
-                      </> 
-                    ) 
-                  }
-             
-                  
-                  
-                                  
+                                      
+                             
                   
               </div>
           </>        

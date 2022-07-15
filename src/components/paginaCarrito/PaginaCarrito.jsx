@@ -42,8 +42,7 @@ const PaginaCarrito = memo (
 
       const [idPedido, setIdPedido,] = useState('')         
     
-      console.log(loading)
-
+     
         async function generarOrden(e){
                     setLoading(true)
                     
@@ -85,8 +84,6 @@ const PaginaCarrito = memo (
                         try {
                             const docRef = await addDoc(ordenCollection, {orden} )
                             setIdPedido(docRef.id)
-                            console.log("ID de refencia: ", docRef.id);
-                            console.log(orden)
                         } catch (e) {
                             console.error("Error: ", e);
                         }

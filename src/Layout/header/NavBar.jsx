@@ -11,16 +11,15 @@ const NavBar = () => {
   return (
     <Navbar bg="light" expand="lg">
   <Container>
-    <Navbar.Brand href="#" className="col-4">
+    <Navbar.Brand className="col-4">
       <NavLink to='/'> 
-        <img src={logo} className="App-logo" alt="logo" style={{width:350}} />
+        <img src={logo} className="App-logo img-fluid" alt="logo" />
         </NavLink>
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="navbarScroll" />
-    <Navbar.Collapse id="navbarScroll" className="d-flex">
+    <Navbar.Collapse id="navbarScroll" className="d-flex col-8">
       <Nav
         className="me-auto my-2 my-lg-0"
-        style={{ maxHeight: '100px' }}
         navbarScroll
       >
         <NavLink to='/' className={({ isActive }) => (isActive ? 'active nav-link' : 'inactive nav-link')}>Inicio</NavLink>

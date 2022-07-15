@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import {Card} from 'react-bootstrap'
-import {Badge } from 'react-bootstrap'
+import {Badge, Row } from 'react-bootstrap'
 import {ListGroup} from 'react-bootstrap'
 import {Button } from 'react-bootstrap'
 import {ListGroupItem } from 'react-bootstrap'
@@ -9,12 +9,20 @@ import { NavLink} from 'react-router-dom'
 import { useCartContext } from '../../contexts/CartContext'
 import { BookmarkHeart, BookmarkHeartFill } from 'react-bootstrap-icons';
 import "./ItemCards.css"
+import { useState } from 'react'
 
 const ItemCard = memo (
   
 ({producto, cantidadProductos}) => { 
 
-  const { NumberWithCommas, PrecioDescuento, AddWishlist, whislist, MensajeValidar, TotalDeseos, DelWhishlist, DelProductoDeseos  } = useCartContext()  
+  const { NumberWithCommas, 
+          PrecioDescuento, 
+          AddWishlist,
+          whislist, 
+          MensajeValidar,
+          TotalDeseos,
+          DelWhishlist,
+          DelProductoDeseos} = useCartContext()  
 
   function numeroPunto( x ) {
     return NumberWithCommas(x)
@@ -34,13 +42,15 @@ function whislistAgregar() {
       console.log('error');
    })      
    } else {
-    MensajeValidar("El producto ya esta en lista de deseos")
+    MensajeValidar(producto.modelo+ " ya esta en lista de deseos")
    }
 
   }
    const isInWhislist = ( id ) =>{
     return whislist?.some((i)=> i.id === id)
   }
+
+  const [style, setStyle] = useState({display: 'none', animation:'all 1s'});
 
   
   
@@ -51,7 +61,12 @@ function whislistAgregar() {
                         "col-3 g-1 text-center" :
                         "col-2 g-1 text-center" 
                       } >
-            <Card>
+            <Card onMouseEnter={e => {
+                     setStyle({display: 'block', animation:'all 1s' });
+                 }}
+                 onMouseLeave={e => {
+                     setStyle({display: 'none', animation:'all 1s' })
+                 }}>
                   { producto.descuento > 0 && 
                     <Badge bg="warning" className='oferta'> {(producto.descuento*100)} % OFF </Badge>  
                   }
@@ -60,12 +75,7 @@ function whislistAgregar() {
                     <BookmarkHeart className='megusta' onClick={whislistAgregar}/> :
                     <BookmarkHeartFill onClick={() => DelProductoDeseos(producto.id)} className='megusta'/> 
                   }
-                    <Card.Img variant="top" src={producto.urlMiniatura}/>
-                    <Card.Body>
-                      <Card.Title>{producto.marca} </Card.Title>
-                      <Card.Text>Modelo: {producto.modelo}</Card.Text>
-                    </Card.Body>
-                    
+                    <Card.Img variant="top" src={producto.urlMiniatura}/>                   
                     <ListGroup className="list-group-flush">                               
                    
                       { 
@@ -74,11 +84,21 @@ function whislistAgregar() {
                         : <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
                       }
                     </ListGroup>
-                    <Card.Body>
+                    
+                    <Card.Body style={style}>
+                    <Row>
+                      <Col className='col-6'>
+                      <Card.Title>{producto.marca} </Card.Title>
+                      <Card.Text>{producto.modelo}</Card.Text> 
+                      </Col>
+                      <Col>                 
                       <NavLink to={`/detalle/${producto.id}`}>
                         <Button> Ver Producto</Button>
-                      </NavLink>                         
+                      </NavLink>  
+                      </Col>
+                      </Row>                     
                     </Card.Body>
+                    
             </Card>
         </Col>
       </> 

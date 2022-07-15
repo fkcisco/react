@@ -51,16 +51,9 @@ function ItemSingle({ ver }){
             } 
             </h4>
         
-            <Row className="d-flex">
-              {/*<Col sm={4}>
-                 <Form.Select aria-label="Default select example">
-                <option value="0">Talles Disponibles</option>
-                {ver.talles.map(talle=> <option key={talle}>{talle}</option> )}
-                </Form.Select>
-              </Col>*/}
+            <Row className="d-flex">              
               <Col sm={12} className="d-flex">
                 <ItemCount stock={ver.stock} init='1' talles={ver.talles} ident={ver.id} onAdd={onAdd} precioFinal={precioFinal} talleStock={ver.talleStock}/>
-
               </Col>
               </Row>
         </Col>

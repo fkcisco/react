@@ -13,6 +13,7 @@ const ImputCount = () =>{
 
 const ButtonCount = ({handleInter}) =>{
     return <Button variant="outline-primary" onClick={handleInter}>Agregar</Button>
+    
 }
 
 const Intercambiabilidad = ({ ident, count }) => {

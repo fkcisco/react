@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom'
 const ListItem = memo (
     ({mostrarIndex, tipoProducto}) => {
       
-  const { objProductos  } = useProductContext()   
+  const { objProductos } = useProductContext()   
   const [loading, setLoading] = useState(true)  
   const [productos, setProductos] = useState([])
   //const [contarProductos, setContarProductos] = useState([])
@@ -60,7 +60,7 @@ const ListItem = memo (
           } else {
             if(mostrarIndex) {
               const filtrarTipo = objProductos.filter(producto => producto.tipoProducto === productoTipo)
-              const mostrarCuatro = filtrarTipo .slice(0,4)
+              const mostrarCuatro = filtrarTipo.slice(0,4)
               setProductos(mostrarCuatro)              
               setLoading(false)
               //setContarProductos(mostrarCuatro.length)
@@ -74,7 +74,7 @@ const ListItem = memo (
             }
           }
 
-          //console.log(contarProductos)
+         
           
         } 
         
@@ -84,7 +84,7 @@ const ListItem = memo (
 
                 
 
-      }, [categoriaId, filtro, valor]) 
+      }, [categoriaId, filtro, valor, objProductos]) 
 
       
 

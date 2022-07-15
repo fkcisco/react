@@ -6,8 +6,6 @@ const Imput= ( ) => {
         if (vocales.includes(event.key)){
             event.stopPropagation()
         }
-        
-        console.log(event.key)
     }
 
     

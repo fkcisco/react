@@ -19,7 +19,9 @@ export const ProductContextProvider = ({ children }) => {
         
         // const { categoriaId } = useParams()
         // const { filtro } = useParams()  
-        // const { valor } = useParams()  
+        // const { valor } = useParams() 
+        
+        
         
        
         const productsList = () => {           
@@ -42,18 +44,13 @@ export const ProductContextProvider = ({ children }) => {
                                 
                 // }                
              
-            return objProductos        
+            return [objProductos]        
 
-        }     
-
-        
-        //   useEffect(() => {
-        //       return productsList()
-        //   }, [])
-
-        //useEffect(()=> productsList(), []) 
-        
-         useEffect(()=> productsList, []) 
+        }   
+            
+        useEffect(() => {
+              productsList()
+          }, [])
 
 
     return (
