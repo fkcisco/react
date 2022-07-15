@@ -38,7 +38,6 @@ function whislistAgregar() {
    }
 
   }
-
    const isInWhislist = ( id ) =>{
     return whislist?.some((i)=> i.id === id)
   }
@@ -48,44 +47,38 @@ function whislistAgregar() {
 
    return (
       <>    
-        <Col className={ cantidadProductos <= 4 ? "col-3 g-1 text-center" : "col-2 g-1 text-center" } >
+        <Col className={ cantidadProductos != null && cantidadProductos <= 4 ? 
+                        "col-3 g-1 text-center" :
+                        "col-2 g-1 text-center" 
+                      } >
             <Card>
-                  { producto.descuento > 0 && <Badge bg="warning" className='oferta'> {(producto.descuento*100)} % OFF </Badge>  }
-                  {!isInWhislist(producto.id) ? <BookmarkHeart className='megusta' onClick={whislistAgregar}/> : <BookmarkHeartFill onClick={() => DelProductoDeseos(producto.id)} className='megusta'/> }
+                  { producto.descuento > 0 && 
+                    <Badge bg="warning" className='oferta'> {(producto.descuento*100)} % OFF </Badge>  
+                  }
+                  {
+                    !isInWhislist(producto.id) ? 
+                    <BookmarkHeart className='megusta' onClick={whislistAgregar}/> :
+                    <BookmarkHeartFill onClick={() => DelProductoDeseos(producto.id)} className='megusta'/> 
+                  }
                     <Card.Img variant="top" src={producto.urlMiniatura}/>
                     <Card.Body>
                       <Card.Title>{producto.marca} </Card.Title>
                       <Card.Text>Modelo: {producto.modelo}</Card.Text>
                     </Card.Body>
-                    {/* <ListGroup className="d-flex">                    
-                      <p className='mb-0'>Talles Disponibles</p>                    
-                      <h4>
-                        {producto.talles.map(talle=>                         
-                            <Badge className="mx-1 my-2" bg="dark" key={talle}>
-                                {talle}
-                            </Badge>                        
-                        )}
-                      </h4>
-                    </ListGroup> */}
-                    <ListGroup className="list-group-flush">                                
-                    {/* <ListGroupItem>
-                      {
-                        producto.stock <= 0
-                        ? <div> Sin Stock </div>
-                        : <div> Stock{producto.stock} pares de {producto.tipoProducto} </div>
-                      }
-                    </ListGroupItem>                     */}
+                    
+                    <ListGroup className="list-group-flush">                               
+                   
                       { 
-                      producto.descuento !== 0
-                      ? <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
-                      : <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
+                        producto.descuento !== 0
+                        ? <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
+                        : <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
                       }
                     </ListGroup>
-                      <Card.Body>
+                    <Card.Body>
                       <NavLink to={`/detalle/${producto.id}`}>
-                            <Button> Ver Producto</Button>
+                        <Button> Ver Producto</Button>
                       </NavLink>                         
-                      </Card.Body>
+                    </Card.Body>
             </Card>
         </Col>
       </> 

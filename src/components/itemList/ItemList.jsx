@@ -15,13 +15,11 @@ const ListItem = memo (
   const { objProductos  } = useProductContext()   
   const [loading, setLoading] = useState(true)  
   const [productos, setProductos] = useState([])
+  //const [contarProductos, setContarProductos] = useState([])
   const [mostrarCuatro, setMostrarCuatro] = useState(mostrarIndex)
   const [productoTipo, setProductoTipo] = useState(tipoProducto)
   const [bool, setBool] = useState(true)   
-
-  console.log(productoTipo)
-  
-  const { categoriaId } = useParams()
+    const { categoriaId } = useParams()
   const { filtro } = useParams()  
   const { valor } = useParams()
 
@@ -56,28 +54,39 @@ const ListItem = memo (
             setProductos(objProductos
               .filter(producto => producto.tipoProducto === categoriaId)
               .filter(producto => producto[filtro] === valor)
-            )
+            )            
             setLoading(false)
+            //setContarProductos(productos.length)
           } else {
             if(mostrarIndex) {
               const filtrarTipo = objProductos.filter(producto => producto.tipoProducto === productoTipo)
               const mostrarCuatro = filtrarTipo .slice(0,4)
-              setProductos(mostrarCuatro)
+              setProductos(mostrarCuatro)              
               setLoading(false)
+              //setContarProductos(mostrarCuatro.length)
             } else {
             setProductos(objProductos
               .filter(producto => producto.tipoProducto === productoTipo)
               )
             setLoading(false)
+            //setContarProductos(productos.length)  
+
             }
           }
+
+          //console.log(contarProductos)
+          
         } 
         
         catch (e) {
           console.log("Error: ", e);
         }
 
+                
+
       }, [categoriaId, filtro, valor]) 
+
+      
 
   return ( 
     

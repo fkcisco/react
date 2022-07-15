@@ -1,7 +1,7 @@
 ## Plugins
 
 Detalles de las librerias utilizadas.
-Actualizado: 15/06/2022
+Actualizado: 15/07/2022
 
 | Libreria | USO |
 | ------ | ------ |
