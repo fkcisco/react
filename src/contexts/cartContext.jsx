@@ -1,22 +1,21 @@
+import React from "react";
 import { useState } from "react"
 import { useEffect } from "react"
-import { createContext, useContext } from "react"
+import { createContext } from "react"
+import { useContext } from "react"
 import Swal from "sweetalert2"
 
+
 const CartContext = createContext([])
-
 export const useCartContext = () => useContext(CartContext)
-
 export const CartContextProvider = ({ children }) => {
-
+    
     const[cart, setCart] = useState([])
-
+    
     const[whislist, setWhislist] = useState([])
 
     
-
-    // const[whislist, setWhislist] = useState([])   
-   
+    
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -28,123 +27,56 @@ export const CartContextProvider = ({ children }) => {
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-
-    const addToCard = ( item ) =>{ 
-
-        
+    
+      const addProductCard = ( item ) =>{
         if(!isNaN(item.talleSeleccionado)) {
-
-                if(isInCart(item.id)) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: item.modelo+ ' ya Existe. Se puede comprar un mismo talle en el mismo modelo por pedido'
-                    })
-                } else if( item.cantidad < 1){
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Se debe ingresar una cantidad válida'
-                    })
-                } else {            
-                    setCart([
-                            ...cart,
-                            item
-                        ])                       
-                    Toast.fire({
-                            icon: 'success',
-                            title: item.marca + ' - ' + item.modelo + '  Agregado Correctamente'
-                        })
-                        
+            if(isInCart(item.id)) {
+                Toast.fire({
+                    icon: 'error',
+                    title: item.modelo+ ' ya Existe. Se puede comprar un mismo talle en el mismo modelo por pedido'
+                })
+            } else if( item.cantidad < 1){
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Se debe ingresar una cantidad válida'
+                })
+            } else {            
+                setCart([
+                    ...cart,
+                    item
+                ])                       
+                Toast.fire({
+                    icon: 'success',
+                    title: item.marca + ' - ' + item.modelo + '  Agregado Correctamente'
+                })                                        
                 }
         } else {
             Toast.fire({
                 icon: 'error',
                 title: 'Se debe seleccionar un talle Disponible'
             })
-
         }
-
-          
-    
     }
-
     
-    
-      
-      useEffect(() => {
-        const listaDeseos = JSON.parse(localStorage.getItem('Deseos'))        
-        if (listaDeseos.length >= 1) {
-            setWhislist(listaDeseos)
-        }
-      }, []);
-
-      useEffect(() => {
-        localStorage.setItem('Deseos', JSON.stringify(whislist))
-      }, [whislist])
-
-
-
-      useEffect(() => {
-        const listaCarrito = JSON.parse(localStorage.getItem('Carrito'))        
-        
-        if (listaCarrito != null && listaCarrito.length >= 1) {
-            setCart(listaCarrito)
-            Swal.fire({
-                title: "Tenes Productos pendientes en el carrito",
-                showDenyButton: true,
-                denyButtonText: "Seguir Comprando",
-                denyButtonColor: "grey",
-                confirmButtonText: "Pagar",
-                confirmButtonColor: "#4c4",
-              }).then((res) => {
-                if (res.isConfirmed) {
-                    
-                }
-                if (res.isDenied) {
-                 
-                }
-              })
-        }
-      }, []);
-
-      useEffect(() => {
-        localStorage.setItem('Carrito', JSON.stringify(cart))
-      }, [cart])
-
-
-
-
-    const AddWishlist = ( producto ) => {
+    const addProductWish = ( product ) => {
         setWhislist([
             ...whislist,
-            producto
+            product
         ])        
         Toast.fire({
             icon: 'success',
-            title: producto.marca + ' - ' + producto.modelo + ' agregado a Lista de Deseos'
-        })
-       
-
+            title: product.marca + ' - ' + product.modelo + ' agregado a Lista de Deseos'
+        })       
     }
-
-    // const setLocalStorage =( guardar ) => {
-    //     try {
-    //         setWhislist(guardar)
-    //             window.localStorage.setItem("Lista de deseos", JSON.stringify(guardar))
-    //         }
-    //     catch(error) {
-    //         console.log(error)
-    //     }
-
-    // }
-
+    
     const isInCart = ( id ) =>{
         return cart?.some((i)=> i.id === id)
     }
-
-    const DelProducto = ( id ) => {       
-        const items = cart.filter((producto)=> producto.id !== id)            
+    
+    const DeleteProductCart = ( id ) => {       
+        const items = cart.filter( ( product )=> product.id !== id)            
             if(cart.length === 1) {
-                    vaciarCarrito()
+                CleanCart()
             } else {
             setCart(
                 [...items]
@@ -152,93 +84,119 @@ export const CartContextProvider = ({ children }) => {
             Toast.fire({
                     icon: 'success',
                     title: 'Producto Eliminado Correctamente del Carrito'
-                })
-                
+                })                
             }
     }
-
-    const DelProductoDeseos = ( id ) => {       
-        const items = whislist.filter((producto)=> producto.id !== id)            
-            if(whislist.length === 1) {
-                    vaciarCarrito()
-            } else {
+    
+    const DeleteProductWhishList = ( id ) => {       
+        const items = whislist.filter(( product )=> product.id !== id)          
             setWhislist(
                 [...items]
                 )
             Toast.fire({
                     icon: 'success',
                     title: 'Producto Eliminado Correctamente de la Lista de Deseos'
-                })
-                
-            }
-    }
-
-    
-
-    const TotalCarrito = () =>{
-        return cart.reduce((acum,i) => acum + i.cantidad, 0 )   }
-
-    
-        const PrecioTotal = () =>{
-        return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precio), 0 )
+                })        
     }
     
-    const PrecioTotalDescuento = () =>{
-        return cart.reduce((acum,i) => acum + i.cantidad * parseFloat(i.precioFinal), 0 )
+    const TotalProductCart = () =>{
+        return cart.reduce(( accum,i ) => accum + i.cantidad, 0 )
+    }   
+    
+    const TotalPriceCart = () =>{
+        return cart.reduce(( accum,i ) => accum + i.cantidad * parseFloat(i.precio), 0 )
+    }    
+    
+    const TotalPriceDiscountCart = () =>{ 
+        return cart.reduce(( accum,i ) => accum + i.cantidad * parseFloat(i.precioFinal), 0 )
     }
-
-    const TotalDeseos = () =>{
-        return whislist.length   }
-
-    const vaciarCarrito = () => {
+    
+    const TotalProductWhislist = () =>{ 
+        return whislist.length
+    }
+    
+    const CleanCart = () => {
         Toast.fire({
             icon: 'success',
             title: 'El Carrito se Vacio Correctamente'
-        })
-        return setCart([])
-        
+        })        
+        return setCart([])        
     }
-
-    const MensajeValidar = ( mensaje ) => {
+    
+    const ToastMessage = ( message ) => { 
         return Toast.fire({
             icon: 'error',
-            title: mensaje
+            title: message
         })
-    }
+    } 
 
-    function NumberWithCommas(x) {
+    
+    
+    useEffect(() => {
+        const whishListStorage = JSON.parse(localStorage.getItem('Deseos'))        
+        if (whishListStorage != null && whishListStorage.length >= 1) {
+            setWhislist(whishListStorage)
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('Deseos', JSON.stringify(whislist))
+      }, [whislist])
+
+    useEffect(() => {
+        const CartListStorage = JSON.parse(localStorage.getItem('Carrito'))       
+            
+            if (CartListStorage != null && CartListStorage.length >= 1) {
+                setCart(CartListStorage)
+                Swal.fire({
+                    title: "Tenes Productos pendientes en el carrito",
+                    showDenyButton: true,
+                    denyButtonText: "Seguir Comprando",
+                    denyButtonColor: "grey",
+                    confirmButtonText: "Pagar",
+                    confirmButtonColor: "#4c4",
+                }).then((res) => {
+                    if (res.isConfirmed) {                      
+                        
+                    }
+                    if (res.isDenied) {
+                    
+                    }
+                })
+            }
+      }, []);
+    
+      useEffect(() => {
+        localStorage.setItem('Carrito', JSON.stringify(cart))
+    }, [cart])
+    
+    function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-      }
-
-      
-    function PrecioDescuento(precio,descuento){
-        return precio - (parseFloat(precio) * descuento)
-      }
-
-          
-
-return (
-    <CartContext.Provider
-        value={{
-            cart,
-            whislist,
-            addToCard,
-            vaciarCarrito,
-            DelProducto,
-            DelProductoDeseos,
-            PrecioTotal,
-            TotalCarrito,
-            TotalDeseos,
-            NumberWithCommas,
-            PrecioDescuento,
-            PrecioTotalDescuento,
-            MensajeValidar,
-            AddWishlist
-        
-        }}> 
-
-       {children}
-    </CartContext.Provider>
-)
-
+    }      
+    
+    function applyPriceDiscount( price , discount ){ 
+        return price - (parseFloat(price) * discount )
+    } 
+    
+    return (
+        <CartContext.Provider
+            value={{
+                cart,
+                whislist,
+                addProductCard,
+                addProductWish,
+                CleanCart,
+                DeleteProductCart,
+                DeleteProductWhishList,
+                TotalPriceCart,
+                TotalProductCart,
+                TotalProductWhislist,
+                TotalPriceDiscountCart,
+                ToastMessage,
+                numberWithCommas,
+                applyPriceDiscount          
+            }}> 
+        {children}
+        </CartContext.Provider>
+    )
 } 

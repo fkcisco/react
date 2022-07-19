@@ -7,98 +7,86 @@ import {ListGroupItem } from 'react-bootstrap'
 import {Col } from 'react-bootstrap'
 import { NavLink} from 'react-router-dom'
 import { useCartContext } from '../../contexts/CartContext'
-import { BookmarkHeart, BookmarkHeartFill } from 'react-bootstrap-icons';
-import "./ItemCards.css"
 import { useState } from 'react'
+import "./ItemCards.css"
+import WishList from '../wishList/WishList'
 
-const ItemCard = memo (
+const ItemCard = memo ( ({ product , productQuantity }) => { 
+
+  const { numberWithCommas, 
+          applyPriceDiscount} = useCartContext()           
   
-({producto, cantidadProductos}) => { 
-
-  const { NumberWithCommas, 
-          PrecioDescuento, 
-          AddWishlist,
-          whislist, 
-          MensajeValidar,
-          TotalDeseos,
-          DelWhishlist,
-          DelProductoDeseos} = useCartContext()  
-
-  function numeroPunto( x ) {
-    return NumberWithCommas(x)
-  }
-
-  function descuento( precio , descuento ) {
-    return PrecioDescuento( precio , descuento)
-  }
- 
-
-function whislistAgregar() {
-    if(!isInWhislist(producto.id)) {
-          new Promise((resultado) => {
-            return AddWishlist( { ...producto } )            
-        })
-    .catch(() => {
-      console.log('error');
-   })      
-   } else {
-    MensajeValidar(producto.modelo+ " ya esta en lista de deseos")
-   }
-
-  }
-   const isInWhislist = ( id ) =>{
-    return whislist?.some((i)=> i.id === id)
-  }
-
   const [style, setStyle] = useState({display: 'none', animation:'all 1s'});
 
-  
-  
+  function applyNumberWithCommas( x ) {
+    return numberWithCommas(x)
+  }
 
-   return (
+  function priceDiscount( price , discount ) {
+    return applyPriceDiscount( price , discount )
+  }  
+ 
+  return (
       <>    
-        <Col className={ cantidadProductos != null && cantidadProductos <= 4 ? 
+        <Col className={ productQuantity != null && productQuantity <= 4 ? 
                         "col-3 g-1 text-center" :
                         "col-2 g-1 text-center" 
                       } >
-            <Card onMouseEnter={e => {
+            <Card onMouseEnter={ e => {
                      setStyle({display: 'block', animation:'all 1s' });
                  }}
-                 onMouseLeave={e => {
+                 onMouseLeave={ e => {
                      setStyle({display: 'none', animation:'all 1s' })
                  }}>
-                  { producto.descuento > 0 && 
-                    <Badge bg="warning" className='oferta'> {(producto.descuento*100)} % OFF </Badge>  
+                  { product.descuento > 0 && 
+                    <Badge bg="warning" className='oferta'> {(product.descuento*100)} % OFF </Badge>  
                   }
-                  {
-                    !isInWhislist(producto.id) ? 
-                    <BookmarkHeart className='megusta' onClick={whislistAgregar}/> :
-                    <BookmarkHeartFill onClick={() => DelProductoDeseos(producto.id)} className='megusta'/> 
+                  {                    
+                    <WishList product={product} />
                   }
-                    <Card.Img variant="top" src={producto.urlMiniatura}/>                   
-                    <ListGroup className="list-group-flush">                               
+                    <Card.Img variant="top" src={product.urlMiniatura}/>                   
+                    <ListGroup className="list-group-flush">                             
                    
                       { 
-                        producto.descuento !== 0
-                        ? <ListGroupItem bg="danger"><h5>Ahora: {numeroPunto(descuento(producto.precio,producto.descuento))}</h5><h6><del>Antes: {numeroPunto(producto.precio)}</del></h6></ListGroupItem>
-                        : <ListGroupItem bg="danger"><h5>Precio: {numeroPunto(producto.precio)}</h5></ListGroupItem>
+                        product.descuento !== 0
+                        ? 
+                        <ListGroupItem bg="danger">
+                          <h5>
+                            Ahora: {applyNumberWithCommas(priceDiscount(product.precio,product.descuento))}
+                          </h5>
+                          <h6>
+                            <del>
+                              Antes: {applyNumberWithCommas(product.precio)}
+                            </del>
+                          </h6>
+                        </ListGroupItem>
+                        : 
+                        <ListGroupItem bg="danger">
+                          <h5>
+                            Precio: {applyNumberWithCommas(product.precio)}
+                          </h5>
+                        </ListGroupItem>
                       }
-                    </ListGroup>
-                    
+                    </ListGroup>                    
                     <Card.Body style={style}>
-                    <Row>
-                      <Col className='col-6'>
-                      <Card.Title>{producto.marca} </Card.Title>
-                      <Card.Text>{producto.modelo}</Card.Text> 
-                      </Col>
-                      <Col>                 
-                      <NavLink to={`/detalle/${producto.id}`}>
-                        <Button> Ver Producto</Button>
-                      </NavLink>  
-                      </Col>
+                      <Row>
+                        <Col className='col-6'>
+                          <Card.Title>
+                            {product.marca}
+                          </Card.Title>
+                          <Card.Text>
+                            {product.modelo}
+                          </Card.Text> 
+                        </Col>
+                        <Col>                 
+                          <NavLink to={`/detalle/${product.id}`}>
+                            <Button>
+                              Ver Producto
+                            </Button>
+                          </NavLink>  
+                        </Col>
                       </Row>                     
-                    </Card.Body>
-                    
+                    </Card.Body>                    
             </Card>
         </Col>
       </> 

@@ -1,18 +1,13 @@
-import {Container } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import ItemList from '../components/itemList/ItemList'
 
-
-const ItemListContainer= () => {  
-
-
+const ItemListContainer= () => { 
     return (    
-        <>
-            
+        <>            
             <Container>                
-                <ItemList mostrarIndex={false}/>                              
+                <ItemList indexCards={false}/>                              
             </Container>
         </>
-)
+    )
 }
-
 export default ItemListContainer

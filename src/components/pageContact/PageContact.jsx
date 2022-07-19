@@ -1,8 +1,11 @@
-import {Form, Button, Container, Row, Col } from 'react-bootstrap'
-import "./paginaContacto.css"
+import { Form } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
+import "./pageContact.css"
 
-function PaginaContacto() {
-
+function PageContact() {
     return (
         <Container fluid>
             <Row>
@@ -14,18 +17,14 @@ function PaginaContacto() {
                     className='mapa'>
                 </iframe>
             </Row>
-                   
             <Container bsPrefix="container my-5">
                 <Row className='mb-5 text-center'>
                     <h1>Ponete en Contacto con nosotros</h1>
                 </Row>
-
                 <Row className="justify-content-md-center">
-
                     <Col sm={4}>
-                   <h2>Datos de contacto</h2>
+                    <h2>Datos de contacto</h2>
                     </Col>
-
                     <Col sm={4}>
                         <Form>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -36,7 +35,7 @@ function PaginaContacto() {
                                 <Form.Label>Apellido</Form.Label>
                                 <Form.Control type="text" placeholder="Ingresar Apellido" />                                
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Mail</Form.Label>
                                 <Form.Control type="mail" placeholder="Ingresar email" />                                
                             </Form.Group>
@@ -49,20 +48,13 @@ function PaginaContacto() {
                                 <Form.Control as="textarea" rows={3} />                               
                             </Form.Group>
                             <Button variant="primary" type="submit">
-                                Submit
+                                Enviar
                             </Button>
                         </Form>                    
                     </Col>
-
-              </Row>
-
+                </Row>
             </Container>
-                    
-
-
-          </Container>
-      )
-  
-  }
-
-export default PaginaContacto
+        </Container>
+    )
+}
+export default PageContact

@@ -1,4 +1,5 @@
-import {Button, Spinner} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 
 function Cargando({titulo}) {
   return(
@@ -16,5 +17,4 @@ function Cargando({titulo}) {
   </>
   )
 }
-
 export default Cargando

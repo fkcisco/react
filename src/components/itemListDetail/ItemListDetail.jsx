@@ -1,28 +1,27 @@
-import { Row} from 'react-bootstrap'
-import Cargando from '../../helpers/Cargando'
+import { Row } from 'react-bootstrap'
+import Cargando from '../../helpers/Loading'
 import ItemSingle from '../itemSingle/ItemSingle'
-
 import './itemListDetail.css'
 
-const ItemDetail = ( { producto, loading }) => {
-      
+const ItemDetail = ( { product, loading }) => {     
  
-    return ( 
-    
+  return (     
     <div>
-      { loading ?
-      <Row className='d-flexjustify-content-md-center'>
-        <Cargando titulo='Producto' />
-      </Row>        
+      { 
+        loading ?
+          <Row className='d-flexjustify-content-md-center'>
+            <Cargando titulo='Producto' />
+          </Row>       
       :
-      <div>
-        <Row className='align-content-center'>      
-          <ItemSingle key={producto.id} ver={producto} />            
-        </Row>      
+        <div>
+          <Row className='align-content-center'>      
+            <ItemSingle 
+              key={product.id} 
+              singleProduct={product} />            
+          </Row>      
         </div>
-        }
+      }
     </div>
-   )  
-  }
-
-  export default ItemDetail
+  )  
+}
+export default ItemDetail

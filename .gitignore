@@ -22,5 +22,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# clases
+# Carpetas
 /coderClases
+/botones
+
+# Archivos
+getFetch.js
+getFetchSolo.js
+NumerosPrecios.js
+Productos.jsx
+ProductoSolo.jsx
