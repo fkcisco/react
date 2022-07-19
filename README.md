@@ -1,5 +1,5 @@
 ## Sisu Shoes
-Es un proyecto educativo que se desarrollo como parte del trabajo final del curso React JS cursado en CODERHOUSE. Se desarrollo una tienda online para que Sisu Shoez pueda comercializar sus productos.
+Es un proyecto que se desarrollo como parte del trabajo final del curso React JS dictado por Federico Osandon con tutoria de Nahuel Lezcano en CODERHOUSE. Se desarrollo una tienda online para que Sisu Shoez pueda comercializar sus productos.
 
 ## Link funcionamiento
 
@@ -29,21 +29,21 @@ Actualizado: 19/07/2022
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Features
+## Autor
 
 Desarrollado por Francisco Andres Robledo
 
 ## Run Locally
 
 Clone the project
-    git clone https://github.com/fkcisco/react
+    `git clone https://github.com/fkcisco/react`
 
 Go to the project directory
-    cd ecommerce-robledo
+    `cd ecommerce-robledo`
 
 Install dependencies
-    npm install
+    `npm install`
 
 Start the server
-    npm run start
+    `npm run start`
 
