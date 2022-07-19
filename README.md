@@ -1,10 +1,10 @@
-## Sisu Shoes
+## ⌨️ Sisu Shoes
 Es un proyecto que se desarrollo como parte del trabajo final del curso React JS dictado por Federico Osandon con tutoria de Nahuel Lezcano en CODERHOUSE. Se desarrollo una tienda online para que Sisu Shoez pueda comercializar sus productos.
 
 ## :construction: Fase de Desarrollo
 El proyecto esta en etapa de desarrollo para que el cliente real pueda utilizarlo.
 
-## Link funcionamiento
+## 🚀 Link funcionamiento
 https://madryn-ads.com.ar/nano
 
 ## 🛠️ Framework:
@@ -26,15 +26,14 @@ Actualizado: 19/07/2022
 | sweetalert2 ^11.4.18| Se utilizo para manejar las notificaciones de la app |
 
 
-## Features
+## ⚙️ Features
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Autor
+## ✒️ Autor
 Desarrollado por Francisco Andres Robledo
 
-## Versionado
+## 📌 Versionado
 git
-gitHub
 
 ## 📁 Run Locally
 Clone the project
@@ -49,6 +48,6 @@ Install dependencies
 Start the server
     `npm run start`
 
-## deploy
+## 📦 Deploy
 `npm run build`
 
