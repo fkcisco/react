@@ -8,33 +8,31 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 const ListItem = memo ( ( { indexCards , productType = "Productos" } ) => {      
-  const { objProductos } = useProductContext()   
-  const [loading, setLoading] = useState(true)  
-  const [productos, setProductos] = useState([])
-  const [mostrarCuatro, setMostrarCuatro] = useState(indexCards)
-  const [productoTipo, setProductoTipo] = useState(productType)
-  //const [bool, setBool] = useState(true)   
-  const { categoriaId } = useParams()
-  const { filtro } = useParams()  
-  const { valor } = useParams()    
+  const { objProduct } = useProductContext()   
+  const [ loading, setLoading ] = useState(true)  
+  const [ product, setProduct ] = useState([])
+  const [ typeProduct, setTypeProduct ] = useState(productType) 
+  const { categoryId } = useParams()
+  const { filter } = useParams()  
+  const { value } = useParams()    
 
   useEffect(()=>{     
     try {
-      if(categoriaId) {
-        setProductos(objProductos
-          .filter(producto => producto.tipoProducto === categoriaId)
-          .filter(producto => producto[filtro] === valor)
+      if(categoryId) {
+        setProduct(objProduct
+          .filter(producto => producto.tipoProducto === categoryId)
+          .filter(producto => producto[filter] === value)
         )            
         setLoading(false)
         } else {
           if(indexCards) {
-            const filtrarTipo = objProductos.filter(producto => producto.tipoProducto === productoTipo)
-            const mostrarCuatro = filtrarTipo.slice(0,4)
-            setProductos(mostrarCuatro)              
+            const filterType = objProduct.filter(producto => producto.tipoProducto === typeProduct)
+            const filterFour = filterType.slice(0,4)
+            setProduct(filterFour)              
             setLoading(false)
           } else {
-            setProductos(objProductos
-              .filter(producto => producto.tipoProducto === productoTipo)
+            setProduct(objProduct
+              .filter(producto => producto.tipoProducto === typeProduct)
               )
             setLoading(false)
           }
@@ -43,7 +41,7 @@ const ListItem = memo ( ( { indexCards , productType = "Productos" } ) => {
     catch (e) {
       console.log("Error: ", e);
     }              
-  }, [categoriaId, filtro, valor, objProductos])
+  }, [categoryId, filter, value, objProduct])
 
   return (
       <div>
@@ -52,12 +50,12 @@ const ListItem = memo ( ( { indexCards , productType = "Productos" } ) => {
             <Row className=' d-flexjustify-content-md-center'><Loading titulo="Catalogo de Productos"/></Row>        
         :
           <div>    
-            <h1 className='py-5 text-center'>Catalogo de {`${productoTipo}`} </h1>  
+            <h1 className='py-5 text-center'>Catalogo de {`${typeProduct}`} </h1>  
               <Row>            
-                {productos.map(productSingle =>
+                {product.map(productSingle =>
                   <Item key={productSingle.id} 
                   product={productSingle} 
-                  productQuantity={productos.length}/>
+                  productQuantity={product.length}/>
                 )}
               </Row>
           </div>

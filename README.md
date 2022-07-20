@@ -8,15 +8,14 @@ El proyecto esta en etapa de desarrollo para que el cliente real pueda utilizarl
 https://madryn-ads.com.ar/nano
 
 ## 🛠️ Framework:
-React js
+react ^18.1.0
 
-## 🛠️ Librerías
-Detalles de las librerias utilizadas.
+## 🛠️ Dependencias
+Detalles de las dependencias utilizadas.
 Actualizado: 19/07/2022
 
-| Libreria | USO |
+| Dependencia| USO |
 | ------ | ------ |
-| react ^18.1.0 | Se utilizo como entorno de desarrollo  |
 | react-dom ^18.1.0 | se utilizo para manejar el DOM  |
 | react-router-dom ^6.3.0 | se utilizo para manejar las rutas de la app  |
 | bootstrap ^5.1.3 | Se utilizo para manejar la estructura y los elementos  |

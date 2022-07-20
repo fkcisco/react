@@ -28,8 +28,8 @@ function App() {
           <div className="App"> 
               <Routes>                
                   <Route index path='/' element={<ItemListIndex/> } />
-                  <Route path='/producto/:categoriaId/search/:filtro/:valor' element={<ItemListContainer/>} />
-                  <Route path='/producto/:categoriaId' element={<ItemListContainer/>} />
+                  <Route path='/producto/:categoryId/search/:filter/:value' element={<ItemListContainer/>} />
+                  <Route path='/producto/:categoryId' element={<ItemListContainer/>} />
                   <Route path='/detalle/:id' element={<ItemDetailContainer/>} /> 
                   <Route path='/contacto' element={<ItemPageContact />} />
                   <Route path='/carrito' element={<ItemPaginaCart/>} />
